@@ -8,9 +8,11 @@ import {
   FaLinkedin,
   FaDownload
 } from 'react-icons/fa';
+import CVModal from '../CVModal';
 
 const FloatingSidebar = ({ navigationItems, activeDropdown, setActiveDropdown, onNavigate }) => {
   const [isSidebarCollapsed, setIsSidebarCollapsed] = useState(true);
+  const [isCVModalOpen, setIsCVModalOpen] = useState(false);
   const dropdownRef = useRef(null);
 
   // Close dropdown when clicking outside
@@ -42,6 +44,10 @@ const FloatingSidebar = ({ navigationItems, activeDropdown, setActiveDropdown, o
     if (onNavigate) {
       onNavigate(href);
     }
+  };
+
+  const handleDownloadResume = () => {
+    setIsCVModalOpen(true);
   };
 
   return (
@@ -152,7 +158,7 @@ const FloatingSidebar = ({ navigationItems, activeDropdown, setActiveDropdown, o
                 <FaGithub className="text-xl" />
               </a>
               <a
-                href="https://linkedin.com"
+                href="https://www.linkedin.com/in/malcolm-farrugia-81bb6b199/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex justify-center p-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover:scale-105"
@@ -161,8 +167,9 @@ const FloatingSidebar = ({ navigationItems, activeDropdown, setActiveDropdown, o
                 <FaLinkedin className="text-xl" />
               </a>
               <button 
+                onClick={handleDownloadResume}
                 className="w-full p-3 bg-gradient-to-r from-blue-600 to-purple-600 text-white rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 hover:scale-105 flex items-center justify-center"
-                title="Download Resume"
+                title="View Resume"
               >
                 <FaDownload className="text-lg" />
               </button>
@@ -180,7 +187,7 @@ const FloatingSidebar = ({ navigationItems, activeDropdown, setActiveDropdown, o
                   <FaGithub className="text-xl" />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/malcolm-farrugia-81bb6b199/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200 hover:scale-105"
@@ -189,7 +196,10 @@ const FloatingSidebar = ({ navigationItems, activeDropdown, setActiveDropdown, o
                   <FaLinkedin className="text-xl" />
                 </a>
               </div>
-              <button className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium text-sm hover:scale-105 hover:shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-400 delay-400">
+              <button 
+                onClick={handleDownloadResume}
+                className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium text-sm hover:scale-105 hover:shadow-lg animate-in fade-in slide-in-from-bottom-2 duration-400 delay-400"
+              >
                 <FaDownload className="text-sm" />
                 <span>Resume</span>
               </button>
@@ -215,6 +225,12 @@ const FloatingSidebar = ({ navigationItems, activeDropdown, setActiveDropdown, o
           onClick={() => setIsSidebarCollapsed(true)}
         />
       )}
+
+      {/* CV Modal */}
+      <CVModal 
+        isOpen={isCVModalOpen} 
+        onClose={() => setIsCVModalOpen(false)} 
+      />
     </>
   );
 };

@@ -49,7 +49,7 @@ const Header = () => {
           <div className="mt-12">
             <p className="text-gray-400 mb-4 text-sm uppercase tracking-wider">Technologies I Work With</p>
             <div className="flex flex-wrap justify-center gap-4">
-              {['React', 'Node.js', 'Python', 'TypeScript', 'Tailwind', 'AWS'].map((tech) => (
+              {['React.js', 'Next.js', 'Vue.js', 'Node.js', 'JavaScript', 'TypeScript', 'C#' , 'Tailwind', 'Bootstrap', 'AWS'].map((tech) => (
                 <span 
                   key={tech}
                   className="px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-sm border border-white/20 hover:bg-blue-500/20 hover:border-blue-400/40 transition-all"

@@ -17,7 +17,7 @@ const SocialLinks = () => {
     },
     {
       icon: FaLinkedin,
-      href: "https://linkedin.com/in/malcolmfenech",
+      href: "https://www.linkedin.com/in/malcolm-farrugia-81bb6b199/",
       bgColor: "bg-blue-600 hover:bg-blue-700",
       name: "LinkedIn"
     },
