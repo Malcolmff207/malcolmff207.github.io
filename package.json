@@ -26,7 +26,8 @@
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
-    "deploy": "gh-pages -d build"
+    "deploy": "gh-pages -d build",
+    "serve-build": "serve -s build"
   },
   "eslintConfig": {
     "extends": [
@@ -49,6 +50,7 @@
   "devDependencies": {
     "autoprefixer": "^10.4.21",
     "postcss": "^8.5.4",
+    "serve": "^14.2.4",
     "tailwindcss": "^3.4.17"
   }
 }
