@@ -288,346 +288,301 @@ const Skills = () => {
     );
   };
 
-  const renderCell = (skill, columnId) => {
-    // Get the appropriate color for progress bars
-    const getProgressColor = () => {
-      if (activeTab === 'all' && skill.category) {
-        // Use the skill's category color when in "All" tab
-        return skillTabs[skill.category]?.color || 'blue';
+ {/* Update renderCell function for dark mode */}
+    const renderCell = (skill, columnId) => {
+      const getProgressColor = () => {
+        if (activeTab === 'all' && skill.category) {
+          return skillTabs[skill.category]?.color || 'blue';
+        }
+        return currentTab.color;
+      };
+
+      switch (columnId) {
+        case 'technology':
+          return (
+            <div className="flex items-center gap-2">
+              <button
+                onClick={() => toggleSkillDescription(skill.name)}
+                className="flex items-center justify-center w-5 h-5 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                title="Toggle description"
+              >
+                {expandedSkills[skill.name] ? (
+                  <BsChevronDown className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+                ) : (
+                  <BsChevronRight className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+                )}
+              </button>
+              <span className="font-medium text-gray-900 dark:text-gray-100">{skill.name}</span>
+            </div>
+          );
+        
+        case 'level':
+          return (
+            <span className={`px-3 py-1 rounded-full text-xs font-medium text-white ${getSkillColor(skill.level)}`}>
+              {getSkillLabel(skill.level)}
+            </span>
+          );
+        
+        case 'progress':
+          const progressColor = getProgressColor();
+          return <ProgressBar skill={skill} progressColor={progressColor} />;
+        
+        case 'proficiency':
+          return <span className="font-semibold text-gray-700 dark:text-gray-300">{skill.level}%</span>;
+        
+        default:
+          return null;
       }
-      // Use current tab color for specific category tabs
-      return currentTab.color;
     };
 
-    switch (columnId) {
-      case 'technology':
-        return (
-          <div className="flex items-center gap-2">
-            <button
-              onClick={() => toggleSkillDescription(skill.name)}
-              className="flex items-center justify-center w-5 h-5 rounded hover:bg-gray-200 transition-colors"
-              title="Toggle description"
-            >
-              {expandedSkills[skill.name] ? (
-                <BsChevronDown className="w-3 h-3 text-gray-600" />
-              ) : (
-                <BsChevronRight className="w-3 h-3 text-gray-600" />
-              )}
-            </button>
-            <span className="font-medium text-gray-900">{skill.name}</span>
-          </div>
-        );
-      
-      case 'level':
-        return (
-          <span className={`px-3 py-1 rounded-full text-xs font-medium text-white ${getSkillColor(skill.level)}`}>
-            {getSkillLabel(skill.level)}
-          </span>
-        );
-      
-      case 'progress':
-        const progressColor = getProgressColor();
-        return <ProgressBar skill={skill} progressColor={progressColor} />;
-      
-      case 'proficiency':
-        return <span className="font-semibold text-gray-700">{skill.level}%</span>;
-      
-      default:
-        return null;
-    }
-  };
-
   return (
-    <div className="max-w-6xl mx-auto p-6 lg:ml-24" style={{ cursor: isResizing ? 'col-resize' : 'default' }} ref={skillsRef}>
-      <style>{`
-        @keyframes slideDown {
-          from {
-            opacity: 0;
-            max-height: 0;
-            transform: translateY(-10px);
+    <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
+      <div className="min-h-screen max-w-6xl mx-auto p-6 lg:ml-24" style={{ cursor: isResizing ? 'col-resize' : 'default' }} ref={skillsRef}>
+        <style>{`
+          @keyframes slideDown {
+            from {
+              opacity: 0;
+              max-height: 0;
+              transform: translateY(-10px);
+            }
+            to {
+              opacity: 1;
+              max-height: 120px;
+              transform: translateY(0);
+            }
           }
-          to {
-            opacity: 1;
-            max-height: 120px;
-            transform: translateY(0);
+          
+          .animate-slideDown {
+            animation: slideDown 0.6s ease-out forwards;
           }
-        }
-        
-        .animate-slideDown {
-          animation: slideDown 0.6s ease-out forwards;
-        }
-        
-        .scrollbar-hide {
-          -ms-overflow-style: none;
-          scrollbar-width: none;
-        }
-        
-        .scrollbar-hide::-webkit-scrollbar {
-          display: none;
-        }
-      `}</style>
-      {/* Header Section */}
-      <div className="text-center mb-12">
-        <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl mb-6">
-          <BsCode className="w-8 h-8 text-white" />
-        </div>
-        <h2 className="text-3xl font-bold text-gray-900 mb-4">Skills & Technologies</h2>
-        <p className="text-gray-600 max-w-2xl mx-auto">
-          A comprehensive overview of my technical skills, tools, and technologies I work with. 
-          From frontend frameworks to backend systems and creative tools.
-        </p>
-      </div>
+          
+          .scrollbar-hide {
+            -ms-overflow-style: none;
+            scrollbar-width: none;
+          }
+          
+          .scrollbar-hide::-webkit-scrollbar {
+            display: none;
+          }
+        `}</style>
 
-      {/* Tab Navigation */}
-      <div className="relative">
-        <div className="flex border-b border-gray-200 overflow-x-auto scrollbar-hide" ref={tabContainerRef}>
-          {TABS.map((tab, index) => {
-            const TabIcon = skillTabs[tab].icon;
-            const isActive = activeTab === tab;
-            
-            return (
-              <button
-                key={tab}
-                ref={el => tabRefs.current[index] = el}
-                onClick={() => setActiveTab(tab)}
-                className={`flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-5 lg:px-6 py-3 sm:py-4 font-medium transition-all duration-300 whitespace-nowrap flex-shrink-0 min-w-fit ${
-                  isActive 
-                    ? 'text-blue-600' 
-                    : 'text-gray-600 hover:text-gray-900'
-                }`}
-                style={{ 
-                  flex: `1 1 ${100 / TABS.length}%`,
-                  minWidth: '100px'
-                }}
-              >
-                <TabIcon className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
-                <span className="text-xs sm:text-sm font-medium">{skillTabs[tab].title}</span>
-              </button>
-            );
-          })}
+        <div className="max-w-6xl mx-auto p-6 lg:ml-24" style={{ cursor: isResizing ? 'col-resize' : 'default' }} ref={skillsRef}>
+          {/* Header Section */}
+          <div className="text-center mb-12">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-2xl mb-6">
+              <BsCode className="w-8 h-8 text-white" />
+            </div>
+            <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Skills & Technologies</h2>
+            <p className="text-gray-600 dark:text-gray-400 max-w-2xl mx-auto">
+              A comprehensive overview of my technical skills, tools, and technologies I work with. 
+              From frontend frameworks to backend systems and creative tools.
+            </p>
+          </div>
+
+        {/* Tab Navigation */}
+        <div className="relative">
+          <div className="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto scrollbar-hide" ref={tabContainerRef}>
+            {TABS.map((tab, index) => {
+              const TabIcon = skillTabs[tab].icon;
+              const isActive = activeTab === tab;
+              
+              return (
+                <button
+                  key={tab}
+                  ref={el => tabRefs.current[index] = el}
+                  onClick={() => setActiveTab(tab)}
+                  className={`flex items-center justify-center gap-2 sm:gap-3 px-3 sm:px-4 md:px-5 lg:px-6 py-3 sm:py-4 font-medium transition-all duration-300 whitespace-nowrap flex-shrink-0 min-w-fit ${
+                    isActive 
+                      ? 'text-blue-600 dark:text-blue-400' 
+                      : 'text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200'
+                  }`}
+                  style={{ 
+                    flex: `1 1 ${100 / TABS.length}%`,
+                    minWidth: '100px'
+                  }}
+                >
+                  <TabIcon className="w-3 h-3 sm:w-4 sm:h-4 flex-shrink-0" />
+                  <span className="text-xs sm:text-sm font-medium">{skillTabs[tab].title}</span>
+                </button>
+              );
+            })}
+          </div>
+          
+          {/* Sliding Underline */}
+          <div 
+            className="absolute bottom-0 h-0.5 bg-blue-500 dark:bg-blue-400 rounded-full transition-all duration-300 ease-out"
+            style={{
+              width: `${underlineStyle.width}px`,
+              left: `${underlineStyle.left}px`
+            }}
+          ></div>
         </div>
-        
-        {/* Sliding Underline */}
-        <div 
-          className="absolute bottom-0 h-0.5 bg-blue-500 rounded-full transition-all duration-300 ease-out"
-          style={{
-            width: `${underlineStyle.width}px`,
-            left: `${underlineStyle.left}px`
-          }}
-        ></div>
       </div>
 
       {/* Search Bar */}
-      <div className="bg-white rounded-t-2xl shadow-lg overflow-hidden mt-0">
-        <div className="p-4 border-b border-gray-200">
-          <div className="relative max-w-md">
-            <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-              <BsSearch className="h-4 w-4 text-gray-400" />
-            </div>
-            <input
-              type="text"
-              placeholder="Search skills..."
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              className="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-md leading-5 bg-white placeholder-gray-500 focus:outline-none focus:placeholder-gray-400 focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
-            />
-            {searchTerm && (
-              <button
-                onClick={() => setSearchTerm('')}
-                className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
-              >
-                ×
-              </button>
-            )}
+    <div className="bg-white dark:bg-gray-800 rounded-t-2xl shadow-lg dark:shadow-gray-900/50 overflow-hidden mt-0">
+      <div className="p-4 border-b border-gray-200 dark:border-gray-700">
+        <div className="relative max-w-md">
+          <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <BsSearch className="h-4 w-4 text-gray-400 dark:text-gray-500" />
           </div>
-          {(searchTerm || isSearching) && (
-            <p className="mt-2 text-sm text-gray-600">
-              {isSearching ? 'Searching...' : `Found ${currentSkills.length} skill${currentSkills.length !== 1 ? 's' : ''} matching "${debouncedSearchTerm}"`}
-            </p>
+          <input
+            type="text"
+            placeholder="Search skills..."
+            value={searchTerm}
+            onChange={(e) => setSearchTerm(e.target.value)}
+            className="block w-full pl-10 pr-3 py-2 border border-gray-300 dark:border-gray-600 rounded-md leading-5 bg-white dark:bg-gray-700 placeholder-gray-500 dark:placeholder-gray-400 text-gray-900 dark:text-gray-100 focus:outline-none focus:placeholder-gray-400 dark:focus:placeholder-gray-500 focus:ring-1 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-blue-500 dark:focus:border-blue-400"
+          />
+          {searchTerm && (
+            <button
+              onClick={() => setSearchTerm('')}
+              className="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 dark:text-gray-500 hover:text-gray-600 dark:hover:text-gray-300"
+            >
+              ×
+            </button>
           )}
         </div>
+        {(searchTerm || isSearching) && (
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+            {isSearching ? 'Searching...' : `Found ${currentSkills.length} skill${currentSkills.length !== 1 ? 's' : ''} matching "${debouncedSearchTerm}"`}
+          </p>
+        )}
       </div>
+    </div>
 
       {/* Skills Table - Desktop */}
-      <div className="bg-white rounded-b-2xl shadow-lg overflow-hidden">
-        <div className="hidden md:block overflow-x-auto">
-          <table className="w-full table-fixed" style={{ minWidth: Object.values(columnWidths).reduce((sum, width) => sum + width, 0) + 'px' }}>
-            <thead className="bg-gray-100">
-              <tr>
-                {availableColumns.map((column, index) => (
-                  <th
-                    key={column.id}
-                    className={`relative py-3 px-4 font-semibold text-gray-700 text-sm uppercase tracking-wide ${
-                      column.id === 'proficiency' || column.id === 'level' ? 'text-center' : 'text-left'
-                    } ${isResizing ? 'select-none' : ''}`}
-                    style={{ width: `${columnWidths[column.id]}px` }}
-                  >
-                    {column.label}
-                    {index < availableColumns.length - 1 && (
-                      <div
-                        className={`absolute top-0 right-0 w-px h-full cursor-col-resize bg-gray-300 hover:bg-gray-400 transition-colors ${
-                          resizingColumn === column.id ? 'bg-gray-500' : ''
-                        }`}
-                        onMouseDown={(e) => handleMouseDown(e, column.id)}
-                        title="Drag to resize column"
-                      />
-                    )}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {currentSkills.map((skill, index) => (
-                <React.Fragment key={skill.name}>
-                  <tr
-                    className={`border-b border-gray-100 hover:bg-blue-50 transition-colors duration-200 ${
-                      index % 2 === 0 ? 'bg-white' : 'bg-gray-50'
-                    } ${isResizing ? 'select-none' : ''}`}
-                  >
-                    {availableColumns.map(column => (
-                      <td
-                        key={column.id}
-                        className={`py-4 px-4 ${
-                          column.id === 'proficiency' || column.id === 'level' ? 'text-center' : 'text-left'
-                        } overflow-hidden`}
-                        style={{ width: `${columnWidths[column.id]}px` }}
-                      >
-                        {renderCell(skill, column.id)}
-                      </td>
-                    ))}
-                  </tr>
-                  
-                  {/* Description Row */}
-                  {expandedSkills[skill.name] && (
-                    <tr className="bg-gray-100">
-                      <td 
-                        colSpan={availableColumns.length} 
-                        className="px-4 overflow-hidden"
-                      >
-                        <div className="animate-slideDown">
-                          <div className="flex items-center gap-3 py-2">
-                            <span className="text-xs font-semibold text-gray-500 uppercase tracking-wide">
-                              Description:
-                            </span>
-                            <p className="text-sm text-gray-700">
-                              {skill.description}
-                            </p>
-                          </div>
-                        </div>
-                      </td>
-                    </tr>
+    <div className="bg-white dark:bg-gray-800 rounded-b-2xl shadow-lg dark:shadow-gray-900/50 overflow-hidden">
+      <div className="hidden md:block overflow-x-auto">
+        <table className="w-full table-fixed" style={{ minWidth: Object.values(columnWidths).reduce((sum, width) => sum + width, 0) + 'px' }}>
+          <thead className="bg-gray-100 dark:bg-gray-700">
+            <tr>
+              {availableColumns.map((column, index) => (
+                <th
+                  key={column.id}
+                  className={`relative py-3 px-4 font-semibold text-gray-700 dark:text-gray-300 text-sm uppercase tracking-wide ${
+                    column.id === 'proficiency' || column.id === 'level' ? 'text-center' : 'text-left'
+                  } ${isResizing ? 'select-none' : ''}`}
+                  style={{ width: `${columnWidths[column.id]}px` }}
+                >
+                  {column.label}
+                  {index < availableColumns.length - 1 && (
+                    <div
+                      className={`absolute top-0 right-0 w-px h-full cursor-col-resize bg-gray-300 dark:bg-gray-600 hover:bg-gray-400 dark:hover:bg-gray-500 transition-colors ${
+                        resizingColumn === column.id ? 'bg-gray-500 dark:bg-gray-400' : ''
+                      }`}
+                      onMouseDown={(e) => handleMouseDown(e, column.id)}
+                      title="Drag to resize column"
+                    />
                   )}
-                </React.Fragment>
+                </th>
               ))}
-            </tbody>
-          </table>
-        </div>
-
-        {/* Skills Cards - Mobile */}
-        <div className="md:hidden space-y-4 p-4">
-          {currentSkills.map((skill, index) => {
-            // Get the appropriate color for mobile progress bars
-            const getMobileProgressColor = () => {
-              if (activeTab === 'all' && skill.category) {
-                return skillTabs[skill.category]?.color || 'blue';
-              }
-              return currentTab.color;
-            };
-            
-            const progressColor = getMobileProgressColor();
-            
-            return (
-              <div key={skill.name} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-                <div className="flex items-center justify-between mb-3">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => toggleSkillDescription(skill.name)}
-                      className="flex items-center justify-center w-5 h-5 rounded hover:bg-gray-200 transition-colors"
-                      title="Toggle description"
+            </tr>
+          </thead>
+          <tbody>
+            {currentSkills.map((skill, index) => (
+              <React.Fragment key={skill.name}>
+                <tr
+                  className={`border-b border-gray-100 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 ${
+                    index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-750'
+                  } ${isResizing ? 'select-none' : ''}`}
+                >
+                  {availableColumns.map(column => (
+                    <td
+                      key={column.id}
+                      className={`py-4 px-4 ${
+                        column.id === 'proficiency' || column.id === 'level' ? 'text-center' : 'text-left'
+                      } overflow-hidden`}
+                      style={{ width: `${columnWidths[column.id]}px` }}
                     >
-                      {expandedSkills[skill.name] ? (
-                        <BsChevronDown className="w-3 h-3 text-gray-600" />
-                      ) : (
-                        <BsChevronRight className="w-3 h-3 text-gray-600" />
-                      )}
-                    </button>
-                    <h3 className="font-semibold text-gray-900">{skill.name}</h3>
-                  </div>
-                  <span className="font-bold text-gray-700">{skill.level}%</span>
-                </div>
+                      {renderCell(skill, column.id)}
+                    </td>
+                  ))}
+                </tr>
                 
-                <div className="flex items-center justify-between mb-2">
-                  <span className={`px-2 py-1 rounded-full text-xs font-medium text-white ${getSkillColor(skill.level)}`}>
-                    {getSkillLabel(skill.level)}
-                  </span>
-                </div>
-                
-                <div className="w-full bg-gray-200 rounded-full h-2 mb-3">
-                  <ProgressBar skill={skill} progressColor={progressColor} />
-                </div>
-                
+                {/* Description Row */}
                 {expandedSkills[skill.name] && (
-                  <div className="animate-slideDown">
-                    <div className="pt-2 border-t border-gray-100">
-                      <p className="text-sm text-gray-600">
-                        {skill.description}
-                      </p>
-                    </div>
-                  </div>
+                  <tr className="bg-gray-100 dark:bg-gray-700">
+                    <td 
+                      colSpan={availableColumns.length} 
+                      className="px-4 overflow-hidden"
+                    >
+                      <div className="animate-slideDown">
+                        <div className="flex items-center gap-3 py-2">
+                          <span className="text-xs font-semibold text-gray-500 dark:text-gray-400 uppercase tracking-wide">
+                            Description:
+                          </span>
+                          <p className="text-sm text-gray-700 dark:text-gray-300">
+                            {skill.description}
+                          </p>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
                 )}
-              </div>
-            );
-          })}
-        </div>
+              </React.Fragment>
+            ))}
+          </tbody>
+        </table>
       </div>
-
-      {/* Skills Summary Stats */}
-      {activeTab !== 'all' && (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 my-12">
-          <div className="bg-gradient-to-br from-blue-500 to-blue-600 rounded-2xl p-6 text-white text-center">
-            <div className="text-3xl font-bold mb-2">6+</div>
-            <div className="text-blue-100">Programming Languages</div>
-          </div>
-          <div className="bg-gradient-to-br from-green-500 to-green-600 rounded-2xl p-6 text-white text-center">
-            <div className="text-3xl font-bold mb-2">15+</div>
-            <div className="text-green-100">Frameworks & Tools</div>
-          </div>
-          <div className="bg-gradient-to-br from-purple-500 to-purple-600 rounded-2xl p-6 text-white text-center">
-            <div className="text-3xl font-bold mb-2">3+</div>
-            <div className="text-purple-100">Years Learning</div>
-          </div>
-          <div className="bg-gradient-to-br from-pink-500 to-pink-600 rounded-2xl p-6 text-white text-center">
-            <div className="text-3xl font-bold mb-2">10+</div>
-            <div className="text-pink-100">Projects Completed</div>
-          </div>
-        </div>
-      )}
-
-      {/* Skill Level Legend */}
-      {activeTab !== 'all' && (
-        <div className="bg-gray-50 rounded-2xl p-6">
-          <h4 className="text-lg font-semibold text-gray-900 mb-4 text-center">Proficiency Levels</h4>
-          <div className="flex flex-wrap justify-center gap-6">
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-green-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">Expert (85%+)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-blue-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">Advanced (75-84%)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-yellow-500 rounded-full"></div>
-              <span className="text-sm text-gray-600">Intermediate (65-74%)</span>
-            </div>
-            <div className="flex items-center gap-2">
-              <div className="w-3 h-3 bg-gray-400 rounded-full"></div>
-              <span className="text-sm text-gray-600">Beginner (50-64%)</span>
-            </div>
-          </div>
-        </div>
-      )}
     </div>
+
+       {/* Skills Cards - Mobile */}
+      <div className="md:hidden space-y-4 p-4">
+        {currentSkills.map((skill, index) => {
+          const getMobileProgressColor = () => {
+            if (activeTab === 'all' && skill.category) {
+              return skillTabs[skill.category]?.color || 'blue';
+            }
+            return currentTab.color;
+          };
+          
+          const progressColor = getMobileProgressColor();
+          
+          return (
+            <div key={skill.name} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4 shadow-sm">
+              <div className="flex items-center justify-between mb-3">
+                <div className="flex items-center gap-2">
+                  <button
+                    onClick={() => toggleSkillDescription(skill.name)}
+                    className="flex items-center justify-center w-5 h-5 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+                    title="Toggle description"
+                  >
+                    {expandedSkills[skill.name] ? (
+                      <BsChevronDown className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+                    ) : (
+                      <BsChevronRight className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+                    )}
+                  </button>
+                  <h3 className="font-semibold text-gray-900 dark:text-gray-100">{skill.name}</h3>
+                </div>
+                <span className="font-bold text-gray-700 dark:text-gray-300">{skill.level}%</span>
+              </div>
+              
+              <div className="flex items-center justify-between mb-2">
+                <span className={`px-2 py-1 rounded-full text-xs font-medium text-white ${getSkillColor(skill.level)}`}>
+                  {getSkillLabel(skill.level)}
+                </span>
+              </div>
+              
+              <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2 mb-3">
+                <ProgressBar skill={skill} progressColor={progressColor} />
+              </div>
+              
+              {expandedSkills[skill.name] && (
+                <div className="animate-slideDown">
+                  <div className="pt-2 border-t border-gray-100 dark:border-gray-600">
+                    <p className="text-sm text-gray-600 dark:text-gray-300">
+                      {skill.description}
+                    </p>
+                  </div>
+                </div>
+              )}
+            </div>
+          );
+        })}
+      </div>
+    </div>
+</div>
   );
 };
 

@@ -12,31 +12,31 @@ const SocialLinks = () => {
     {
       icon: FaGithub,
       href: "https://github.com/malcolmff",
-      bgColor: "bg-gray-800 hover:bg-gray-700",
+      bgColor: "bg-gray-800 hover:bg-gray-700 dark:bg-gray-700 dark:hover:bg-gray-600",
       name: "GitHub"
     },
     {
       icon: FaLinkedin,
       href: "https://www.linkedin.com/in/malcolm-farrugia-81bb6b199/",
-      bgColor: "bg-blue-600 hover:bg-blue-700",
+      bgColor: "bg-blue-600 hover:bg-blue-700 dark:bg-blue-700 dark:hover:bg-blue-600",
       name: "LinkedIn"
     },
     {
       icon: FaFacebook,
       href: "https://facebook.com/malcolmfenech",
-      bgColor: "bg-blue-500 hover:bg-blue-600",
+      bgColor: "bg-blue-500 hover:bg-blue-600 dark:bg-blue-600 dark:hover:bg-blue-500",
       name: "Facebook"
     },
     {
       icon: FaInstagram,
       href: "https://instagram.com/malcolmfenech",
-      bgColor: "bg-pink-500 hover:bg-pink-600",
+      bgColor: "bg-pink-500 hover:bg-pink-600 dark:bg-pink-600 dark:hover:bg-pink-500",
       name: "Instagram"
     },
     {
       icon: FaTwitter,
       href: "https://twitter.com/malcolmfenech",
-      bgColor: "bg-sky-500 hover:bg-sky-600",
+      bgColor: "bg-sky-500 hover:bg-sky-600 dark:bg-sky-600 dark:hover:bg-sky-500",
       name: "Twitter"
     }
   ];
@@ -48,17 +48,17 @@ const SocialLinks = () => {
   );
 
   return (
-    <section>
+    <section className="bg-gray-50 dark:bg-gray-900 py-10 transition-colors duration-300">
       <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
+        <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg">
           <div className="text-center mb-6">
             <div className="flex justify-center items-center mb-3">
-              <div className="bg-blue-100 p-2 rounded-lg text-blue-600 mr-3">
+              <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-lg text-blue-600 dark:text-blue-400 mr-3">
                 <CodeIcon />
               </div>
-              <h3 className="text-2xl font-bold text-gray-900">Connect Online</h3>
+              <h3 className="text-2xl font-bold text-gray-900 dark:text-gray-100">Connect Online</h3>
             </div>
-            <p className="text-gray-600">
+            <p className="text-gray-600 dark:text-gray-400">
               Follow my journey and check out my projects
             </p>
           </div>

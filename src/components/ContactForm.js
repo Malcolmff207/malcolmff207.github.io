@@ -76,20 +76,20 @@ const ContactForm = () => {
 
   return (
     <div className="lg:col-span-2">
-      <div className="bg-gray-50 rounded-2xl p-8 border border-gray-200 shadow-lg flex flex-col">
+      <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-lg flex flex-col">
         <div className="flex items-center mb-6">
-          <div className="text-blue-600 mr-3">
+          <div className="text-blue-600 dark:text-blue-400 mr-3">
             <MessageIcon />
           </div>
-          <h2 className="text-3xl font-bold text-gray-900">Send a Message</h2>
+          <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100">Send a Message</h2>
         </div>
         
         {submitStatus && (
-          <div className="mb-6 p-4 bg-green-50 border border-green-200 rounded-lg flex items-center">
-            <div className="text-green-600 mr-2">
+          <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-lg flex items-center">
+            <div className="text-green-600 dark:text-green-400 mr-2">
               <CheckIcon />
             </div>
-            <p className="text-green-700">{submitStatus}</p>
+            <p className="text-green-700 dark:text-green-300">{submitStatus}</p>
           </div>
         )}
 
@@ -97,7 +97,7 @@ const ContactForm = () => {
           <div className="flex-1 space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
               <div>
-                <label className="block text-gray-900 font-medium mb-2">
+                <label className="block text-gray-900 dark:text-gray-200 font-medium mb-2">
                   Full Name *
                 </label>
                 <input
@@ -106,17 +106,17 @@ const ContactForm = () => {
                   value={values.name}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={`w-full px-4 py-3 bg-white border rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
-                    touched.name && errors.name ? 'border-red-300' : 'border-gray-300'
+                  className={`w-full px-4 py-3 bg-white dark:bg-gray-700 border rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all ${
+                    touched.name && errors.name ? 'border-red-300 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
                   }`}
                   placeholder="Your full name"
                 />
                 {touched.name && errors.name && (
-                  <p className="mt-1 text-sm text-red-600">{errors.name}</p>
+                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>
                 )}
               </div>
               <div>
-                <label className="block text-gray-900 font-medium mb-2">
+                <label className="block text-gray-900 dark:text-gray-200 font-medium mb-2">
                   Email Address *
                 </label>
                 <input
@@ -125,19 +125,19 @@ const ContactForm = () => {
                   value={values.email}
                   onChange={handleChange}
                   onBlur={handleBlur}
-                  className={`w-full px-4 py-3 bg-white border rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
-                    touched.email && errors.email ? 'border-red-300' : 'border-gray-300'
+                  className={`w-full px-4 py-3 bg-white dark:bg-gray-700 border rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all ${
+                    touched.email && errors.email ? 'border-red-300 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
                   }`}
                   placeholder="your.email@example.com"
                 />
                 {touched.email && errors.email && (
-                  <p className="mt-1 text-sm text-red-600">{errors.email}</p>
+                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
                 )}
               </div>
             </div>
             
             <div>
-              <label className="block text-gray-900 font-medium mb-2">
+              <label className="block text-gray-900 dark:text-gray-200 font-medium mb-2">
                 Subject *
               </label>
               <input
@@ -146,18 +146,18 @@ const ContactForm = () => {
                 value={values.subject}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={`w-full px-4 py-3 bg-white border rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all ${
-                  touched.subject && errors.subject ? 'border-red-300' : 'border-gray-300'
+                className={`w-full px-4 py-3 bg-white dark:bg-gray-700 border rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all ${
+                  touched.subject && errors.subject ? 'border-red-300 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
                 }`}
                 placeholder="What's this about?"
               />
               {touched.subject && errors.subject && (
-                <p className="mt-1 text-sm text-red-600">{errors.subject}</p>
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.subject}</p>
               )}
             </div>
             
             <div className="flex-1">
-              <label className="block text-gray-900 font-medium mb-2">
+              <label className="block text-gray-900 dark:text-gray-200 font-medium mb-2">
                 Message *
               </label>
               <textarea
@@ -165,13 +165,13 @@ const ContactForm = () => {
                 value={values.message}
                 onChange={handleChange}
                 onBlur={handleBlur}
-                className={`w-full h-full min-h-[120px] px-4 py-3 bg-white border rounded-xl text-gray-900 placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-transparent transition-all resize-none ${
-                  touched.message && errors.message ? 'border-red-300' : 'border-gray-300'
+                className={`w-full h-full min-h-[120px] px-4 py-3 bg-white dark:bg-gray-700 border rounded-xl text-gray-900 dark:text-gray-100 placeholder-gray-500 dark:placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-blue-500 dark:focus:ring-blue-400 focus:border-transparent transition-all resize-none ${
+                  touched.message && errors.message ? 'border-red-300 dark:border-red-500' : 'border-gray-300 dark:border-gray-600'
                 }`}
                 placeholder="Tell me about the role, company culture, or any questions you have about my background..."
               />
               {touched.message && errors.message && (
-                <p className="mt-1 text-sm text-red-600">{errors.message}</p>
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message}</p>
               )}
             </div>
           </div>
@@ -181,8 +181,8 @@ const ContactForm = () => {
             disabled={isSubmitting}
             className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all flex items-center justify-center space-x-2 mt-6 ${
               isSubmitting 
-                ? 'bg-gray-500 cursor-not-allowed' 
-                : 'bg-blue-600 hover:bg-blue-700 hover:scale-[1.02] active:scale-95 shadow-lg hover:shadow-xl'
+                ? 'bg-gray-500 dark:bg-gray-600 cursor-not-allowed' 
+                : 'bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-600 hover:scale-[1.02] active:scale-95 shadow-lg hover:shadow-xl'
             }`}
           >
             {isSubmitting ? (

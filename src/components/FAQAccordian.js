@@ -85,32 +85,32 @@ const FAQAccordion = () => {
   );
 
   return (
-    <section className="pt-10" id="faq" ref={sectionRef}>
+    <section className="pt-10 bg-gray-50 dark:bg-gray-900 transition-colors duration-300" id="faq" ref={sectionRef}>
       <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className={`text-center mb-16 transition-all duration-1000 ${
           sectionVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'
         }`}>
-          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">
+          <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 dark:from-blue-400 dark:to-cyan-400 bg-clip-text text-transparent mb-4">
             Frequently Asked Questions
           </h2>
-          <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+          <p className="text-xl text-gray-600 dark:text-gray-400 max-w-3xl mx-auto">
             Get to know more about my background, skills, and approach to development
           </p>
         </div>
 
         {/* Accordion Container - Centered */}
         <div className="flex justify-center pb-16">
-          <div className={`w-full max-w-4xl bg-white rounded-2xl shadow-lg border border-blue-100 overflow-hidden transition-all duration-1000 delay-200 ${
+          <div className={`w-full max-w-4xl bg-white dark:bg-gray-800 rounded-2xl shadow-lg dark:shadow-gray-900/50 border border-blue-100 dark:border-gray-700 overflow-hidden transition-all duration-1000 delay-200 ${
             sectionVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'
           }`}>
           {faqData.map((item, index) => (
-            <div key={item.id} className="border-b border-gray-200 last:border-b-0">
+            <div key={item.id} className="border-b border-gray-200 dark:border-gray-700 last:border-b-0">
               {/* Question Header */}
               <button
                 onClick={() => toggleItem(item.id)}
-                className={`w-full text-left p-6 hover:bg-blue-50 transition-all duration-200 focus:outline-none focus:bg-blue-50 ${
-                  openItems[item.id] ? 'bg-gradient-to-r from-blue-500 to-cyan-500 text-white hover:from-blue-600 hover:to-cyan-600' : 'text-gray-900'
+                className={`w-full text-left p-6 hover:bg-blue-50 dark:hover:bg-gray-700 transition-all duration-200 focus:outline-none focus:bg-blue-50 dark:focus:bg-gray-700 ${
+                  openItems[item.id] ? 'bg-gradient-to-r from-blue-500 to-cyan-500 dark:from-blue-600 dark:to-cyan-600 text-white hover:from-blue-600 hover:to-cyan-600 dark:hover:from-blue-700 dark:hover:to-cyan-700' : 'text-gray-900 dark:text-gray-100'
                 }`}
               >
                 <div className="flex items-center justify-between">
@@ -118,7 +118,7 @@ const FAQAccordion = () => {
                     {item.question}
                   </h3>
                   <div className={`transition-colors duration-200 ${
-                    openItems[item.id] ? 'text-white' : 'text-blue-500'
+                    openItems[item.id] ? 'text-white' : 'text-blue-500 dark:text-blue-400'
                   }`}>
                     <ChevronIcon isOpen={openItems[item.id]} />
                   </div>
@@ -127,12 +127,12 @@ const FAQAccordion = () => {
               
               {/* Answer Content with Smooth Animation */}
               <div 
-                className={`bg-gray-50 overflow-hidden transition-all duration-500 ease-in-out ${
+                className={`bg-gray-50 dark:bg-gray-700 overflow-hidden transition-all duration-500 ease-in-out ${
                   openItems[item.id] ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                 }`}
               >
                 <div className="p-6 pt-4">
-                  <p className="text-gray-700 leading-relaxed">
+                  <p className="text-gray-700 dark:text-gray-300 leading-relaxed">
                     {item.answer}
                   </p>
                 </div>
@@ -140,8 +140,6 @@ const FAQAccordion = () => {
             </div>
           ))}
         </div>
-
-
         </div>
       </div>
     </section>

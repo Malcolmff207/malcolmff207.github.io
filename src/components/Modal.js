@@ -1,4 +1,3 @@
-// components/Modal.js
 import React, { useEffect } from 'react';
 import { FaTimes } from 'react-icons/fa';
 
@@ -46,7 +45,7 @@ const Modal = ({ isOpen, onClose, children, title, size = 'large', showCloseButt
     <div className="fixed inset-0 z-50 overflow-y-auto">
       {/* Backdrop */}
       <div 
-        className="fixed inset-0 bg-black/50 backdrop-blur-sm transition-opacity duration-300"
+        className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm transition-opacity duration-300"
         onClick={onClose}
         aria-hidden="true"
       />
@@ -54,19 +53,19 @@ const Modal = ({ isOpen, onClose, children, title, size = 'large', showCloseButt
       {/* Modal */}
       <div className="flex min-h-full items-center justify-center p-4">
         <div 
-          className={`relative w-full ${getSizeClasses()} transform rounded-2xl bg-white shadow-2xl transition-all duration-300 animate-in fade-in zoom-in-95`}
+          className={`relative w-full ${getSizeClasses()} transform rounded-2xl bg-white dark:bg-gray-800 shadow-2xl dark:shadow-gray-900/70 transition-all duration-300 animate-in fade-in zoom-in-95`}
           onClick={(e) => e.stopPropagation()}
         >
           {/* Header */}
           {(title || showCloseButton) && (
-            <div className="flex items-center justify-between border-b border-gray-200 px-6 py-4">
+            <div className="flex items-center justify-between border-b border-gray-200 dark:border-gray-700 px-6 py-4">
               {title && (
-                <h2 className="text-xl font-semibold text-gray-900">{title}</h2>
+                <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">{title}</h2>
               )}
               {showCloseButton && (
                 <button
                   onClick={onClose}
-                  className="rounded-full p-2 text-gray-400 hover:bg-gray-100 hover:text-gray-600 transition-all duration-200"
+                  className="rounded-full p-2 text-gray-400 dark:text-gray-500 hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200"
                   aria-label="Close modal"
                 >
                   <FaTimes className="h-5 w-5" />

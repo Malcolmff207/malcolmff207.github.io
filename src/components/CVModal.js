@@ -1,8 +1,11 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { FaDownload, FaPrint, FaTimes } from 'react-icons/fa';
+import { useTheme } from '../hooks/useTheme';
 
 const CVModal = ({ isOpen, onClose }) => {
   const printRef = useRef();
+  const { theme } = useTheme();
+  const isDark = theme === 'dark';
 
   const handlePrint = () => {
     const printContent = printRef.current;
@@ -757,27 +760,36 @@ const CVModal = ({ isOpen, onClose }) => {
 
   return (
     <div className="fixed inset-0 z-50 overflow-y-auto">
-      <div className="fixed inset-0 bg-black/50 backdrop-blur-sm" onClick={onClose} />
+      <div className="fixed inset-0 bg-black/50 dark:bg-black/70 backdrop-blur-sm" onClick={onClose} />
       <div className="flex items-center justify-center min-h-full p-4">
-        <div className="relative w-full max-w-6xl bg-white rounded-2xl shadow-2xl" onClick={e => e.stopPropagation()}>
-          <div className="flex justify-between items-center border-b px-6 py-4">
+        <div className="relative w-full max-w-6xl bg-white dark:bg-gray-800 rounded-2xl shadow-2xl dark:shadow-gray-900/70 transition-colors duration-300" onClick={e => e.stopPropagation()}>
+          <div className="flex justify-between items-center border-b border-gray-200 dark:border-gray-700 px-6 py-4">
             <div>
-              <h2 className="text-xl font-semibold">Resume Preview</h2>
-              <p className="text-sm text-gray-600">View and download your professional resume</p>
+              <h2 className="text-xl font-semibold text-gray-900 dark:text-gray-100">Resume Preview</h2>
+              <p className="text-sm text-gray-600 dark:text-gray-400">View and download your professional resume</p>
             </div>
             <div className="flex space-x-3">
-              <button onClick={handlePrint} className="flex items-center bg-blue-600 text-white px-4 py-2 rounded-lg hover:bg-blue-700 transition-colors">
+              <button 
+                onClick={handlePrint} 
+                className="flex items-center bg-blue-600 dark:bg-blue-700 text-white px-4 py-2 rounded-lg hover:bg-blue-700 dark:hover:bg-blue-600 transition-colors"
+              >
                 <FaPrint className="mr-2" />Print
               </button>
-              <button onClick={handleDownload} className="flex items-center bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition-colors">
+              <button 
+                onClick={handleDownload} 
+                className="flex items-center bg-green-600 dark:bg-green-700 text-white px-4 py-2 rounded-lg hover:bg-green-700 dark:hover:bg-green-600 transition-colors"
+              >
                 <FaDownload className="mr-2" />Download PDF
               </button>
-              <button onClick={onClose} className="p-2 text-gray-400 rounded-full hover:bg-gray-100">
+              <button 
+                onClick={onClose} 
+                className="p-2 text-gray-400 dark:text-gray-500 rounded-full hover:bg-gray-100 dark:hover:bg-gray-700 hover:text-gray-600 dark:hover:text-gray-300 transition-all duration-200"
+              >
                 <FaTimes />
               </button>
             </div>
           </div>
-          <div className="bg-gray-50 p-5 overflow-y-auto max-h-[80vh]">
+          <div className="bg-gray-50 dark:bg-gray-900 p-5 overflow-y-auto max-h-[80vh] transition-colors duration-300">
             <Resume />
           </div>
         </div>

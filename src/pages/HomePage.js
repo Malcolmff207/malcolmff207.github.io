@@ -9,7 +9,7 @@ import FAQAccordion from '../components/FAQAccordian';
 
 const HomePage = () => {
   return (
-    <div className='min-h-screen bg-slate-100'>
+    <div className='min-h-screen bg-slate-100 dark:bg-gray-900 transition-colors duration-300'>
         <Header />
         <AboutSection />
         <SocialLinks />

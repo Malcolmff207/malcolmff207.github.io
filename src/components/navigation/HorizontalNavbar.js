@@ -1,4 +1,3 @@
-// components/HorizontalNavbar.js
 import React, { useState, useRef, useEffect } from 'react';
 import { 
   FaCode, 
@@ -10,6 +9,7 @@ import {
   FaDownload
 } from 'react-icons/fa';
 import CVModal from '../CVModal';
+import ThemeToggle from '../ThemeToggle';
 
 const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -70,16 +70,16 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
 
   return (
     <>
-      <nav className="bg-white/95 backdrop-blur-md shadow-lg border-b border-gray-200 sticky top-0 z-50 transition-all duration-500 animate-in fade-in slide-in-from-top-2">
+      <nav className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg dark:shadow-gray-900/50 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-all duration-500 animate-in fade-in slide-in-from-top-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             
             {/* Logo Section */}
             <div className="flex items-center space-x-2">
-              <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 rounded-lg">
+              <div className="flex items-center justify-center w-10 h-10 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-700 rounded-lg">
                 <FaCode className="text-white text-lg" />
               </div>
-              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+              <span className="text-xl font-bold bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-400 dark:to-purple-400 bg-clip-text text-transparent">
                 Portfolio
               </span>
             </div>
@@ -92,7 +92,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                     <div>
                       <button
                         onClick={() => toggleDropdown(item.name)}
-                        className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-200 font-medium"
+                        className="flex items-center space-x-1 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 font-medium"
                       >
                         <item.icon className="text-sm" />
                         <span>{item.name}</span>
@@ -105,12 +105,12 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                       
                       {/* Dropdown Menu */}
                       {activeDropdown === item.name && (
-                        <div className="absolute top-full left-0 mt-1 w-48 bg-white rounded-lg shadow-lg border border-gray-200 py-2 animate-in fade-in slide-in-from-top-2 duration-200">
+                        <div className="absolute top-full left-0 mt-1 w-48 bg-white dark:bg-gray-800 rounded-lg shadow-lg dark:shadow-gray-900/50 border border-gray-200 dark:border-gray-700 py-2 animate-in fade-in slide-in-from-top-2 duration-200">
                           {item.dropdown.map((dropdownItem) => (
                             <a
                               key={dropdownItem.name}
                               href={dropdownItem.href}
-                              className="block px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-blue-50 transition-colors duration-150"
+                              className="block px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-150"
                               onClick={(e) => handleDropdownItemClick(e, dropdownItem.href)}
                             >
                               {dropdownItem.name}
@@ -122,7 +122,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                   ) : (
                     <a
                       href={item.href}
-                      className="flex items-center space-x-1 px-4 py-2 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-200 font-medium"
+                      className="flex items-center space-x-1 px-4 py-2 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg transition-all duration-200 font-medium"
                       onClick={(e) => handleNavClick(e, item.href)}
                     >
                       <item.icon className="text-sm" />
@@ -135,11 +135,12 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
 
             {/* Action Buttons */}
             <div className="hidden md:flex items-center space-x-3">
+              <ThemeToggle />
               <a
                 href="https://github.com"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
               >
                 <FaGithub className="text-lg" />
               </a>
@@ -147,13 +148,13 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                 href="https://www.linkedin.com/in/malcolm-farrugia-81bb6b199/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="p-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+                className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
               >
                 <FaLinkedin className="text-lg" />
               </a>
               <button 
                 onClick={handleDownloadResume}
-                className="flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium shadow-md hover:shadow-lg"
+                className="flex items-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-700 text-white px-4 py-2 rounded-lg hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-600 dark:hover:to-purple-600 transition-all duration-200 font-medium shadow-md hover:shadow-lg"
               >
                 <FaDownload className="text-sm" />
                 <span>Resume</span>
@@ -164,7 +165,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
             <div className="md:hidden">
               <button
                 onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 text-gray-700 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-colors duration-200"
+                className="p-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
               >
                 {isMenuOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
               </button>
@@ -173,7 +174,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
 
           {/* Mobile Menu */}
           {isMenuOpen && (
-            <div className="md:hidden bg-white border-t border-gray-200 py-4 animate-in fade-in slide-in-from-top-2 duration-200">
+            <div className="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 animate-in fade-in slide-in-from-top-2 duration-200">
               <div className="space-y-2">
                 {navigationItems.map((item) => (
                   <div key={item.name}>
@@ -181,7 +182,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                       <div>
                         <button
                           onClick={() => toggleDropdown(`mobile-${item.name}`)}
-                          className="flex items-center justify-between w-full px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-200"
+                          className="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
                         >
                           <div className="flex items-center space-x-3">
                             <item.icon className="text-sm" />
@@ -199,7 +200,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                               <a
                                 key={dropdownItem.name}
                                 href={dropdownItem.href}
-                                className="block px-4 py-2 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-colors duration-150"
+                                className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors duration-150"
                                 onClick={(e) => handleMobileDropdownItemClick(e, dropdownItem.href)}
                               >
                                 {dropdownItem.name}
@@ -211,7 +212,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                     ) : (
                       <a
                         href={item.href}
-                        className="flex items-center space-x-3 px-4 py-3 text-gray-700 hover:text-blue-600 hover:bg-gray-50 rounded-lg transition-all duration-200"
+                        className="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
                         onClick={(e) => handleMobileNavClick(e, item.href)}
                       >
                         <item.icon className="text-sm" />
@@ -222,13 +223,14 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                 ))}
                 
                 {/* Mobile Action Buttons */}
-                <div className="pt-4 border-t border-gray-200 space-y-3">
+                <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3">
                   <div className="flex justify-center space-x-4">
+                    <ThemeToggle />
                     <a
                       href="https://github.com"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-3 text-gray-600 hover:text-gray-900 hover:bg-gray-100 rounded-lg transition-all duration-200"
+                      className="p-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
                     >
                       <FaGithub className="text-xl" />
                     </a>
@@ -236,14 +238,14 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                       href="https://www.linkedin.com/in/malcolm-farrugia-81bb6b199/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="p-3 text-gray-600 hover:text-blue-600 hover:bg-blue-50 rounded-lg transition-all duration-200"
+                      className="p-3 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
                     >
                       <FaLinkedin className="text-xl" />
                     </a>
                   </div>
                   <button 
                     onClick={handleDownloadResume}
-                    className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 text-white px-4 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 transition-all duration-200 font-medium shadow-md"
+                    className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-700 text-white px-4 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-600 dark:hover:to-purple-600 transition-all duration-200 font-medium shadow-md"
                   >
                     <FaDownload className="text-sm" />
                     <span>Download Resume</span>

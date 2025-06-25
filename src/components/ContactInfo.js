@@ -59,7 +59,7 @@ const ContactInfo = () => {
   return (
     <div className="space-y-6">
       {/* Contact Information */}
-      <div className="bg-blue-600 backdrop-blur-md rounded-2xl p-6 border border-white/20">
+      <div className="bg-blue-600 dark:bg-blue-700 backdrop-blur-md rounded-2xl p-6 border border-white/20">
         <h3 className="text-2xl font-bold text-white mb-6">Contact Information</h3>
         
         <div className="space-y-4">
@@ -67,16 +67,16 @@ const ContactInfo = () => {
             const IconComponent = contact.icon;
             
             return (
-              <div key={index} className="flex items-center space-x-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 transition-colors">
-                <div className="bg-blue-600 p-2 rounded-lg text-white">
+              <div key={index} className="flex items-center space-x-4 p-3 rounded-xl bg-white/5 hover:bg-white/10 dark:bg-white/5 dark:hover:bg-white/10 transition-colors">
+                <div className="bg-blue-600 dark:bg-blue-700 p-2 rounded-lg text-white">
                   <IconComponent />
                 </div>
                 <div>
-                  <p className="text-gray-300 text-sm">{contact.label}</p>
+                  <p className="text-gray-300 dark:text-gray-200 text-sm">{contact.label}</p>
                   {contact.isLink ? (
                     <a 
                       href={contact.href} 
-                      className="text-white hover:text-blue-400 transition-colors"
+                      className="text-white hover:text-blue-400 dark:hover:text-blue-300 transition-colors"
                     >
                       {contact.value}
                     </a>
@@ -91,24 +91,24 @@ const ContactInfo = () => {
       </div>
 
       {/* Why Connect */}
-      <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg">
         <div className="flex items-center mb-4">
-          <div className="bg-blue-100 p-2 rounded-lg text-blue-600 mr-3">
+          <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-lg text-blue-600 dark:text-blue-400 mr-3">
             <HeartIcon />
           </div>
-          <h3 className="text-xl font-bold text-gray-900">Why Connect?</h3>
+          <h3 className="text-xl font-bold text-gray-900 dark:text-gray-100">Why Connect?</h3>
         </div>
-        <div className="space-y-3 text-gray-600">
+        <div className="space-y-3 text-gray-600 dark:text-gray-400">
           <div className="flex items-start space-x-2">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+            <div className="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
             <p className="text-sm">Passionate about clean, efficient code</p>
           </div>
           <div className="flex items-start space-x-2">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+            <div className="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
             <p className="text-sm">6+ years of leadership experience</p>
           </div>
           <div className="flex items-start space-x-2">
-            <div className="w-2 h-2 bg-blue-500 rounded-full mt-2 flex-shrink-0"></div>
+            <div className="w-2 h-2 bg-blue-500 dark:bg-blue-400 rounded-full mt-2 flex-shrink-0"></div>
             <p className="text-sm">Ready to contribute from day one</p>
           </div>
         </div>
