@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { useScrollPosition } from '../hooks/useScrollPosition';
 import { useClickOutside } from '../hooks/useClickOutside';
+import { useMediaQuery } from '../hooks/useMediaQuery';
 import { 
   FaHome,
   FaUser,
@@ -57,14 +58,17 @@ const NavigationContainer = () => {
   const navigate = useNavigate();
   const location = useLocation();
   
-  // Replace manual scroll handling with custom hooks
-  const { scrollY } = useScrollPosition(100); // 100ms throttle
+  // Use custom hooks
+  const { scrollY } = useScrollPosition(100);
   const dropdownRef = useClickOutside(() => setActiveDropdown(null));
   
-  // Keep your existing logic - just use the hook value instead of manual state
-  const isSidebarMode = scrollY > 150;
+  // Check if device is mobile/tablet
+  const isMobile = useMediaQuery('(max-width: 1024px)');
+  
+  // Determine if sidebar should be shown (only on desktop when scrolled)
+  const isSidebarMode = !isMobile && scrollY > 150;
 
-  // Smart navigation handler (keeping your exact logic)
+  // Smart navigation handler
   const handleNavigation = (href) => {
     // Close any open dropdown when navigating
     setActiveDropdown(null);
@@ -121,7 +125,7 @@ const NavigationContainer = () => {
     }
   };
 
-  // Handle initial hash navigation on page load (keeping your exact logic)
+  // Handle initial hash navigation on page load
   useEffect(() => {
     const handleInitialHash = () => {
       const hash = window.location.hash;
@@ -160,7 +164,7 @@ const NavigationContainer = () => {
 
   return (
     <>
-      {/* Navbar Mode */}
+      {/* Always show horizontal navbar on mobile/tablet OR when not scrolled on desktop */}
       {!isSidebarMode && (
         <HorizontalNavbar 
           navigationItems={navigationItems}
@@ -170,7 +174,7 @@ const NavigationContainer = () => {
         />
       )}
 
-      {/* Sidebar Mode */}
+      {/* Only show sidebar on desktop when scrolled */}
       {isSidebarMode && (
         <div ref={dropdownRef}>
           <FloatingSidebar 

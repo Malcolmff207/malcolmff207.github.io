@@ -234,7 +234,7 @@ const Skills = () => {
   const currentTab = skillTabs[activeTab] || skillTabs.all;
   const currentSkills = getCurrentSkills();
 
-  // Update underline position when active tab changes (keeping your exact logic)
+  // Update underline position when active tab changes
   useEffect(() => {
     const updateUnderlinePosition = () => {
       const activeIndex = TABS.indexOf(activeTab);
@@ -338,7 +338,7 @@ const Skills = () => {
   };
 
   return (
-    <div className="max-w-6xl mx-auto p-6 ml-24" style={{ cursor: isResizing ? 'col-resize' : 'default' }} ref={skillsRef}>
+    <div className="max-w-6xl mx-auto p-6 lg:ml-24" style={{ cursor: isResizing ? 'col-resize' : 'default' }} ref={skillsRef}>
       <style>{`
         @keyframes slideDown {
           from {

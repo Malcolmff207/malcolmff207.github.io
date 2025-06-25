@@ -63,7 +63,7 @@ const Education = () => {
 
   return (
     <section id="education" ref={sectionRef}>
-        <div className={`max-w-6xl mx-auto p-6 ml-24 transition-all duration-1000 ${
+        <div className={`max-w-6xl mx-auto p-6 lg:ml-24 transition-all duration-1000 ${
           sectionVisible 
             ? 'opacity-100 transform translate-y-0' 
             : 'opacity-0 transform translate-y-10'

@@ -49,7 +49,7 @@ const SocialLinks = () => {
 
   return (
     <section>
-      <div className="ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white rounded-2xl p-6 border border-gray-200 shadow-lg">
           <div className="text-center mb-6">
             <div className="flex justify-center items-center mb-3">

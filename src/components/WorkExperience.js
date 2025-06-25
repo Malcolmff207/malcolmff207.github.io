@@ -83,7 +83,7 @@ const WorkExperience = () => {
     return visibleExperiences[id] !== undefined ? visibleExperiences[id] : true;
   };
 
-  // Initialize visibility for new experiences (keeping your exact logic)
+  // Initialize visibility for new experiences
   useEffect(() => {
     const hasUninitializedExperiences = experiences.some(exp => 
       visibleExperiences[exp.id] === undefined
@@ -105,7 +105,7 @@ const WorkExperience = () => {
 
   return (
     <section id="experience" ref={sectionRef}>
-        <div className="max-w-6xl mx-auto p-6 ml-24">
+        <div className="max-w-6xl mx-auto p-6 lg:ml-24">
             {/* Header Section */}
             <div className="text-center mb-12">
                 <div className="relative inline-block mb-6">

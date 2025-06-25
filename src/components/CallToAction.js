@@ -18,7 +18,7 @@ const CallToAction = ({
   layout = {
     fullWidth: false,
     className: "",
-    sidebarSpacing: "ml-20" // Configurable sidebar spacing
+    sidebarSpacing: "lg:ml-20" // Changed to responsive
   }
 }) => {
   return (

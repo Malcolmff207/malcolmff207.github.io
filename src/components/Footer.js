@@ -86,7 +86,7 @@ const Footer = () => {
 
         <div className="relative z-10">
           {/* Main Footer Content - Added left margin for sidebar */}
-          <div className="ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
+          <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
               
               {/* Brand Section */}
@@ -234,7 +234,7 @@ const Footer = () => {
 
           {/* Bottom Bar - Also with left margin */}
           <div className="border-t border-white/10">
-            <div className="ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
+            <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
               <div className="flex flex-col md:flex-row items-center justify-between space-y-4 md:space-y-0">
                 <div className="flex items-center space-x-2 text-gray-300">
                   <span>&copy; {currentYear} Malcolm Fenech. All rights reserved.</span>

@@ -1,4 +1,4 @@
-// components/AboutSection.js - Updated with CV Modal
+// components/AboutSection.js - Updated with responsive margins
 import React, { useState } from 'react';
 import { 
   FaGraduationCap, 
@@ -77,7 +77,7 @@ const AboutSection = () => {
   return (
     <>
       <section className="pt-20 bg-gradient-to-br from-slate-50 to-blue-50" id="about">
-        <div className="ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* Section Header */}
           <div className="text-center mb-16">
             <h2 className="text-4xl md:text-5xl font-bold bg-gradient-to-r from-blue-600 to-cyan-600 bg-clip-text text-transparent mb-4">

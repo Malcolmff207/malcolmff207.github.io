@@ -8,7 +8,7 @@ import FAQAccordion from '../components/FAQAccordian';
 const ContactPage = () => {
     return (
         <section className="pt-20 bg-slate-100" id="contact">
-            <div className="ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Header Section */}
                 <div className="text-center mb-16">
                     <h1 className="text-5xl md:text-6xl font-bold text-gray-900 mb-6">

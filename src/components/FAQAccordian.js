@@ -86,7 +86,7 @@ const FAQAccordion = () => {
 
   return (
     <section className="pt-10" id="faq" ref={sectionRef}>
-      <div className="ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Header Section */}
         <div className={`text-center mb-16 transition-all duration-1000 ${
           sectionVisible ? 'opacity-100 transform translate-y-0' : 'opacity-0 transform translate-y-10'
