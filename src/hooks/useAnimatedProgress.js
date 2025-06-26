@@ -1,4 +1,3 @@
-// hooks/useAnimatedProgress.js
 import { useState, useEffect, useRef } from 'react';
 
 /**
@@ -18,6 +17,7 @@ export const useAnimatedProgress = (
   const [currentValue, setCurrentValue] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
   const animationRef = useRef();
+  const targetRef = useRef(targetValue);
 
   // Easing functions
   const easingFunctions = {
@@ -45,10 +45,23 @@ export const useAnimatedProgress = (
     }
   };
 
+  // FIXED: React to target value changes
   useEffect(() => {
+    // If target hasn't changed, don't restart animation
+    if (targetRef.current === targetValue) return;
+    
+    targetRef.current = targetValue;
+
     // Cancel any existing animation
     if (animationRef.current) {
       cancelAnimationFrame(animationRef.current);
+    }
+
+    // If target is 0, reset immediately
+    if (targetValue === 0) {
+      setCurrentValue(0);
+      setIsAnimating(false);
+      return;
     }
 
     const timer = setTimeout(() => {
@@ -88,14 +101,7 @@ export const useAnimatedProgress = (
         cancelAnimationFrame(animationRef.current);
       }
     };
-  }, [targetValue, duration, delay, easing, currentValue]);
-
-  // Reset animation when target changes significantly
-  useEffect(() => {
-    if (Math.abs(targetValue - currentValue) > 5) {
-      setCurrentValue(0);
-    }
-  }, [targetValue]);
+  }, [targetValue, duration, delay, easing]); // Removed currentValue from dependencies
 
   return { 
     currentValue: Math.round(currentValue * 100) / 100, // Round to 2 decimal places
@@ -171,8 +177,27 @@ export const useAnimatedProgressMultiple = (targets, duration = 1000, staggerDel
 export const useAnimatedCounter = (target, duration = 2000, delay = 0) => {
   const [count, setCount] = useState(0);
   const [isAnimating, setIsAnimating] = useState(false);
+  const targetRef = useRef(target);
+  const animationRef = useRef();
 
   useEffect(() => {
+    // FIXED: Only animate if target actually changed
+    if (targetRef.current === target) return;
+    
+    targetRef.current = target;
+
+    // Cancel any existing animation
+    if (animationRef.current) {
+      cancelAnimationFrame(animationRef.current);
+    }
+
+    // If target is 0, reset immediately
+    if (target === 0) {
+      setCount(0);
+      setIsAnimating(false);
+      return;
+    }
+
     const timer = setTimeout(() => {
       setIsAnimating(true);
       let startTime = null;
@@ -187,21 +212,26 @@ export const useAnimatedCounter = (target, duration = 2000, delay = 0) => {
         const easeOut = 1 - Math.pow(2, -10 * progress);
         const newValue = startValue + (valueChange * easeOut);
         
-        setCount(Math.floor(newValue));
+        setCount(Math.round(newValue));
         
         if (progress < 1) {
-          requestAnimationFrame(animate);
+          animationRef.current = requestAnimationFrame(animate);
         } else {
           setCount(target);
           setIsAnimating(false);
         }
       };
       
-      requestAnimationFrame(animate);
+      animationRef.current = requestAnimationFrame(animate);
     }, delay);
 
-    return () => clearTimeout(timer);
-  }, [target, duration, delay, count]);
+    return () => {
+      clearTimeout(timer);
+      if (animationRef.current) {
+        cancelAnimationFrame(animationRef.current);
+      }
+    };
+  }, [target, duration, delay]); // Removed count from dependencies
 
   return { count, isAnimating };
 };

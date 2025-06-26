@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { 
   FaGithub, 
   FaLinkedin, 
@@ -6,8 +6,35 @@ import {
   FaInstagram, 
   FaTwitter 
 } from 'react-icons/fa';
+import { useLoading } from '../hooks/useLoading';
+import Skeleton from './Skeleton';
+
+// Social Links Skeleton Component
+const SocialLinksSkeleton = () => (
+  <section className="bg-gray-50 dark:bg-gray-900 py-10 transition-colors duration-300">
+    <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg">
+        <div className="text-center mb-6">
+          <div className="flex justify-center items-center mb-3">
+            <Skeleton variant="circular" width="40px" height="40px" className="mr-3" />
+            <Skeleton variant="text" width="200px" height="28px" />
+          </div>
+          <Skeleton variant="text" width="300px" className="mx-auto" />
+        </div>
+        
+        <div className="flex justify-center items-center space-x-4">
+          {[1, 2, 3, 4, 5].map((i) => (
+            <Skeleton key={i} variant="rounded" width="48px" height="48px" />
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+);
 
 const SocialLinks = () => {
+  const { isLoading, stopLoading } = useLoading(500);
+  
   const socialLinks = [
     {
       icon: FaGithub,
@@ -47,11 +74,24 @@ const SocialLinks = () => {
     </svg>
   );
 
+  // Simulate loading
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      stopLoading();
+    }, 600);
+    
+    return () => clearTimeout(timer);
+  }, [stopLoading]);
+
+  if (isLoading) {
+    return <SocialLinksSkeleton />;
+  }
+
   return (
-    <section className="bg-gray-50 dark:bg-gray-900 py-10 transition-colors duration-300">
+    <section className="bg-gray-50 dark:bg-gray-900 py-10 transition-colors duration-300 animate-in fade-in slide-in-from-bottom duration-700">
       <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 border border-gray-200 dark:border-gray-700 shadow-lg">
-          <div className="text-center mb-6">
+          <div className="text-center mb-6 animate-in fade-in slide-in-from-top duration-500 animation-delay-100">
             <div className="flex justify-center items-center mb-3">
               <div className="bg-blue-100 dark:bg-blue-900/30 p-2 rounded-lg text-blue-600 dark:text-blue-400 mr-3">
                 <CodeIcon />
@@ -72,7 +112,8 @@ const SocialLinks = () => {
                   href={social.href}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className={`p-3 rounded-xl text-white transition-all duration-200 hover:scale-110 hover:shadow-md ${social.bgColor}`}
+                  className={`p-3 rounded-xl text-white transition-all duration-200 hover:scale-110 hover:shadow-md ${social.bgColor} animate-in fade-in scale-in`}
+                  style={{ animationDelay: `${(index + 2) * 100}ms` }}
                   title={social.name}
                 >
                   <IconComponent className="w-5 h-5" />

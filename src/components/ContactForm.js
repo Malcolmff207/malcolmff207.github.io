@@ -1,7 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useFormValidation, validationRules } from '../hooks/useFormValidation';
+import { useSectionLoading } from '../hooks/useLoading';
+import { ContactFormSkeleton } from './skeletons';
 
 const ContactForm = () => {
+  const { loadingStates, setSectionLoading } = useSectionLoading({
+    form: true,
+    validation: false
+  });
+
   const initialValues = {
     name: '',
     email: '',
@@ -39,6 +46,22 @@ const ContactForm = () => {
     setSubmitStatus
   } = useFormValidation(initialValues, formValidationRules);
 
+  // Simulate loading form configuration
+  useEffect(() => {
+    const loadFormConfig = async () => {
+      try {
+        // Simulate API call to get form configuration
+        await new Promise(resolve => setTimeout(resolve, 800));
+        setSectionLoading('form', false);
+      } catch (error) {
+        console.error('Error loading form config:', error);
+        setSectionLoading('form', false);
+      }
+    };
+    
+    loadFormConfig();
+  }, [setSectionLoading]);
+
   const onSubmit = async (formData) => {
     // Simulate form submission - replace with your actual submission logic
     await new Promise(resolve => setTimeout(resolve, 1000));
@@ -74,8 +97,18 @@ const ContactForm = () => {
     </svg>
   );
 
+  // Show skeleton while loading
+  if (loadingStates.form) {
+    return (
+      <div aria-busy="true" aria-label="Loading contact form">
+        <span className="sr-only">Loading contact form, please wait...</span>
+        <ContactFormSkeleton />
+      </div>
+    );
+  }
+
   return (
-    <div className="lg:col-span-2">
+    <div className="lg:col-span-2 animate-in fade-in slide-in-from-left duration-700">
       <div className="bg-gray-50 dark:bg-gray-800 rounded-2xl p-8 border border-gray-200 dark:border-gray-700 shadow-lg flex flex-col">
         <div className="flex items-center mb-6">
           <div className="text-blue-600 dark:text-blue-400 mr-3">
@@ -85,7 +118,7 @@ const ContactForm = () => {
         </div>
         
         {submitStatus && (
-          <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-lg flex items-center">
+          <div className="mb-6 p-4 bg-green-50 dark:bg-green-900/30 border border-green-200 dark:border-green-700 rounded-lg flex items-center animate-in fade-in slide-in-from-top duration-300">
             <div className="text-green-600 dark:text-green-400 mr-2">
               <CheckIcon />
             </div>
@@ -96,7 +129,7 @@ const ContactForm = () => {
         <form onSubmit={handleFormSubmit} className="space-y-6 flex-1 flex flex-col">
           <div className="flex-1 space-y-6">
             <div className="grid md:grid-cols-2 gap-6">
-              <div>
+              <div className="animate-in fade-in slide-in-from-bottom duration-500 animation-delay-100">
                 <label className="block text-gray-900 dark:text-gray-200 font-medium mb-2">
                   Full Name *
                 </label>
@@ -112,10 +145,10 @@ const ContactForm = () => {
                   placeholder="Your full name"
                 />
                 {touched.name && errors.name && (
-                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.name}</p>
+                  <p className="mt-1 text-sm text-red-600 dark:text-red-400 animate-in fade-in">{errors.name}</p>
                 )}
               </div>
-              <div>
+              <div className="animate-in fade-in slide-in-from-bottom duration-500 animation-delay-200">
                 <label className="block text-gray-900 dark:text-gray-200 font-medium mb-2">
                   Email Address *
                 </label>
@@ -131,12 +164,12 @@ const ContactForm = () => {
                   placeholder="your.email@example.com"
                 />
                 {touched.email && errors.email && (
-                  <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.email}</p>
+                  <p className="mt-1 text-sm text-red-600 dark:text-red-400 animate-in fade-in">{errors.email}</p>
                 )}
               </div>
             </div>
             
-            <div>
+            <div className="animate-in fade-in slide-in-from-bottom duration-500 animation-delay-300">
               <label className="block text-gray-900 dark:text-gray-200 font-medium mb-2">
                 Subject *
               </label>
@@ -152,11 +185,11 @@ const ContactForm = () => {
                 placeholder="What's this about?"
               />
               {touched.subject && errors.subject && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.subject}</p>
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400 animate-in fade-in">{errors.subject}</p>
               )}
             </div>
             
-            <div className="flex-1">
+            <div className="flex-1 animate-in fade-in slide-in-from-bottom duration-500 animation-delay-400">
               <label className="block text-gray-900 dark:text-gray-200 font-medium mb-2">
                 Message *
               </label>
@@ -171,7 +204,7 @@ const ContactForm = () => {
                 placeholder="Tell me about the role, company culture, or any questions you have about my background..."
               />
               {touched.message && errors.message && (
-                <p className="mt-1 text-sm text-red-600 dark:text-red-400">{errors.message}</p>
+                <p className="mt-1 text-sm text-red-600 dark:text-red-400 animate-in fade-in">{errors.message}</p>
               )}
             </div>
           </div>
@@ -179,7 +212,7 @@ const ContactForm = () => {
           <button
             type="submit"
             disabled={isSubmitting}
-            className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all flex items-center justify-center space-x-2 mt-6 ${
+            className={`w-full py-4 px-6 rounded-xl font-semibold text-white transition-all flex items-center justify-center space-x-2 mt-6 animate-in fade-in scale-in duration-500 animation-delay-500 ${
               isSubmitting 
                 ? 'bg-gray-500 dark:bg-gray-600 cursor-not-allowed' 
                 : 'bg-blue-600 dark:bg-blue-700 hover:bg-blue-700 dark:hover:bg-blue-600 hover:scale-[1.02] active:scale-95 shadow-lg hover:shadow-xl'

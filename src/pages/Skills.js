@@ -3,6 +3,8 @@ import { BsCode, BsLaptop, BsTools, BsPalette, BsGear, BsServer, BsDatabase, BsP
 import { useIntersectionObserver } from '../hooks/useIntersectionObserver';
 import { useAnimatedProgress } from '../hooks/useAnimatedProgress';
 import { useDebouncedSearch } from '../hooks/useDebounce';
+import { useDataWithSkeleton } from '../hooks/useLoading';
+import { SkillsPageSkeleton } from '../components/skeletons';
 
 const Skills = () => {
   const [activeTab, setActiveTab] = useState('all');
@@ -42,6 +44,7 @@ const Skills = () => {
     proficiency: 120
   });
 
+  // Skills data
   const skillTabs = {
     all: {
       title: "All",
@@ -129,6 +132,22 @@ const Skills = () => {
       ]
     }
   };
+
+  // Simulate data fetching with skeleton
+  const fetchSkillsData = async () => {
+    // Simulate API call
+    await new Promise(resolve => setTimeout(resolve, 1200));
+    return skillTabs;
+  };
+
+  const { 
+    data: loadedSkillTabs, 
+    isLoading, 
+    error 
+  } = useDataWithSkeleton(fetchSkillsData, [], {
+    delay: 600,
+    showSkeletonOnRefetch: false
+  });
 
   // Define tabs array as constant to avoid reference errors
   const TABS = ['all', 'frontend', 'backend', 'database', 'design', 'mobile', 'tools'];
@@ -278,9 +297,9 @@ const Skills = () => {
 
     return (
       <div className="w-full">
-        <div className="w-full bg-gray-200 rounded-full h-2">
+        <div className="w-full bg-gray-200 dark:bg-gray-600 rounded-full h-2">
           <div
-            className={`h-2 rounded-full bg-gradient-to-r from-${progressColor}-500 to-${progressColor}-600 transition-all duration-300`}
+            className={`h-2 rounded-full bg-gradient-to-r from-${progressColor}-500 to-${progressColor}-600 transition-all duration-300 skeleton-wave`}
             style={{ width: `${currentValue}%` }}
           ></div>
         </div>
@@ -288,52 +307,85 @@ const Skills = () => {
     );
   };
 
- {/* Update renderCell function for dark mode */}
-    const renderCell = (skill, columnId) => {
-      const getProgressColor = () => {
-        if (activeTab === 'all' && skill.category) {
-          return skillTabs[skill.category]?.color || 'blue';
-        }
-        return currentTab.color;
-      };
-
-      switch (columnId) {
-        case 'technology':
-          return (
-            <div className="flex items-center gap-2">
-              <button
-                onClick={() => toggleSkillDescription(skill.name)}
-                className="flex items-center justify-center w-5 h-5 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
-                title="Toggle description"
-              >
-                {expandedSkills[skill.name] ? (
-                  <BsChevronDown className="w-3 h-3 text-gray-600 dark:text-gray-400" />
-                ) : (
-                  <BsChevronRight className="w-3 h-3 text-gray-600 dark:text-gray-400" />
-                )}
-              </button>
-              <span className="font-medium text-gray-900 dark:text-gray-100">{skill.name}</span>
-            </div>
-          );
-        
-        case 'level':
-          return (
-            <span className={`px-3 py-1 rounded-full text-xs font-medium text-white ${getSkillColor(skill.level)}`}>
-              {getSkillLabel(skill.level)}
-            </span>
-          );
-        
-        case 'progress':
-          const progressColor = getProgressColor();
-          return <ProgressBar skill={skill} progressColor={progressColor} />;
-        
-        case 'proficiency':
-          return <span className="font-semibold text-gray-700 dark:text-gray-300">{skill.level}%</span>;
-        
-        default:
-          return null;
+  // Render cell function for table
+  const renderCell = (skill, columnId) => {
+    const getProgressColor = () => {
+      if (activeTab === 'all' && skill.category) {
+        return skillTabs[skill.category]?.color || 'blue';
       }
+      return currentTab.color;
     };
+
+    switch (columnId) {
+      case 'technology':
+        return (
+          <div className="flex items-center gap-2">
+            <button
+              onClick={() => toggleSkillDescription(skill.name)}
+              className="flex items-center justify-center w-5 h-5 rounded hover:bg-gray-200 dark:hover:bg-gray-600 transition-colors"
+              title="Toggle description"
+            >
+              {expandedSkills[skill.name] ? (
+                <BsChevronDown className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+              ) : (
+                <BsChevronRight className="w-3 h-3 text-gray-600 dark:text-gray-400" />
+              )}
+            </button>
+            <span className="font-medium text-gray-900 dark:text-gray-100">{skill.name}</span>
+          </div>
+        );
+      
+      case 'level':
+        return (
+          <span className={`px-3 py-1 rounded-full text-xs font-medium text-white ${getSkillColor(skill.level)}`}>
+            {getSkillLabel(skill.level)}
+          </span>
+        );
+      
+      case 'progress':
+        const progressColor = getProgressColor();
+        return <ProgressBar skill={skill} progressColor={progressColor} />;
+      
+      case 'proficiency':
+        return <span className="font-semibold text-gray-700 dark:text-gray-300">{skill.level}%</span>;
+      
+      default:
+        return null;
+    }
+  };
+
+  // Show skeleton while loading
+  if (isLoading) {
+    return (
+      <div aria-busy="true" aria-label="Loading skills data">
+        <span className="sr-only">Loading skills and technologies, please wait...</span>
+        <SkillsPageSkeleton />
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className="min-h-screen bg-white dark:bg-gray-900 flex items-center justify-center">
+        <div className="text-center p-8">
+          <BsGearFill className="w-16 h-16 text-gray-400 mx-auto mb-4 animate-spin" />
+          <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-100 mb-2">
+            Oops! Something went wrong
+          </h2>
+          <p className="text-gray-600 dark:text-gray-400 mb-6">
+            We couldn't load the skills data. Please try again.
+          </p>
+          <button
+            onClick={() => window.location.reload()}
+            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors"
+          >
+            Try Again
+          </button>
+        </div>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-white dark:bg-gray-900 transition-colors duration-300">
@@ -366,10 +418,10 @@ const Skills = () => {
           }
         `}</style>
 
-        <div className="max-w-6xl mx-auto p-6 lg:ml-24" style={{ cursor: isResizing ? 'col-resize' : 'default' }} ref={skillsRef}>
+        <div className="max-w-6xl mx-auto p-6 lg:ml-24 animate-in fade-in slide-in-from-bottom duration-700" style={{ cursor: isResizing ? 'col-resize' : 'default' }} ref={skillsRef}>
           {/* Header Section */}
-          <div className="text-center mb-12">
-            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-2xl mb-6">
+          <div className="text-center mb-12 stagger-children">
+            <div className="inline-flex items-center justify-center w-16 h-16 bg-gradient-to-br from-blue-500 to-blue-600 dark:from-blue-600 dark:to-blue-700 rounded-2xl mb-6 scale-in">
               <BsCode className="w-8 h-8 text-white" />
             </div>
             <h2 className="text-3xl font-bold text-gray-900 dark:text-gray-100 mb-4">Skills & Technologies</h2>
@@ -380,7 +432,7 @@ const Skills = () => {
           </div>
 
         {/* Tab Navigation */}
-        <div className="relative">
+        <div className="relative animate-in fade-in slide-in-from-top duration-500 animation-delay-200">
           <div className="flex border-b border-gray-200 dark:border-gray-700 overflow-x-auto scrollbar-hide" ref={tabContainerRef}>
             {TABS.map((tab, index) => {
               const TabIcon = skillTabs[tab].icon;
@@ -420,11 +472,11 @@ const Skills = () => {
       </div>
 
       {/* Search Bar */}
-    <div className="bg-white dark:bg-gray-800 rounded-t-2xl shadow-lg dark:shadow-gray-900/50 overflow-hidden mt-0">
+    <div className="bg-white dark:bg-gray-800 rounded-t-2xl shadow-lg dark:shadow-gray-900/50 overflow-hidden mt-0 animate-in fade-in slide-in-from-right duration-500 animation-delay-300">
       <div className="p-4 border-b border-gray-200 dark:border-gray-700">
         <div className="relative max-w-md">
           <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-            <BsSearch className="h-4 w-4 text-gray-400 dark:text-gray-500" />
+            <BsSearch className={`h-4 w-4 text-gray-400 dark:text-gray-500 ${isSearching ? 'animate-pulse' : ''}`} />
           </div>
           <input
             type="text"
@@ -443,7 +495,7 @@ const Skills = () => {
           )}
         </div>
         {(searchTerm || isSearching) && (
-          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400">
+          <p className="mt-2 text-sm text-gray-600 dark:text-gray-400 animate-in fade-in">
             {isSearching ? 'Searching...' : `Found ${currentSkills.length} skill${currentSkills.length !== 1 ? 's' : ''} matching "${debouncedSearchTerm}"`}
           </p>
         )}
@@ -451,7 +503,7 @@ const Skills = () => {
     </div>
 
       {/* Skills Table - Desktop */}
-    <div className="bg-white dark:bg-gray-800 rounded-b-2xl shadow-lg dark:shadow-gray-900/50 overflow-hidden">
+    <div className="bg-white dark:bg-gray-800 rounded-b-2xl shadow-lg dark:shadow-gray-900/50 overflow-hidden animate-in fade-in scale-in duration-500 animation-delay-400">
       <div className="hidden md:block overflow-x-auto">
         <table className="w-full table-fixed" style={{ minWidth: Object.values(columnWidths).reduce((sum, width) => sum + width, 0) + 'px' }}>
           <thead className="bg-gray-100 dark:bg-gray-700">
@@ -484,7 +536,8 @@ const Skills = () => {
                 <tr
                   className={`border-b border-gray-100 dark:border-gray-700 hover:bg-blue-50 dark:hover:bg-blue-900/20 transition-colors duration-200 ${
                     index % 2 === 0 ? 'bg-white dark:bg-gray-800' : 'bg-gray-50 dark:bg-gray-750'
-                  } ${isResizing ? 'select-none' : ''}`}
+                  } ${isResizing ? 'select-none' : ''} animate-in fade-in slide-in-from-left duration-300`}
+                  style={{ animationDelay: `${(index + 5) * 50}ms` }}
                 >
                   {availableColumns.map(column => (
                     <td
@@ -539,7 +592,11 @@ const Skills = () => {
           const progressColor = getMobileProgressColor();
           
           return (
-            <div key={skill.name} className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4 shadow-sm">
+            <div 
+              key={skill.name} 
+              className="bg-white dark:bg-gray-700 border border-gray-200 dark:border-gray-600 rounded-lg p-4 shadow-sm animate-in fade-in scale-in duration-300"
+              style={{ animationDelay: `${(index + 5) * 50}ms` }}
+            >
               <div className="flex items-center justify-between mb-3">
                 <div className="flex items-center gap-2">
                   <button
