@@ -34,12 +34,7 @@ const navigationItems = [
   {
     name: 'Projects',
     icon: FaBriefcase,
-    href: '/#projects',
-    dropdown: [
-      { name: 'Web Applications', href: '/#web-apps' },
-      { name: 'Mobile Apps', href: '/#mobile-apps' },
-      { name: 'Open Source', href: '/#open-source' }
-    ]
+    href: '/projects'
   },
   {
     name: 'Skills',
@@ -70,16 +65,19 @@ const NavigationContainer = () => {
 
   // Smart navigation handler
   const handleNavigation = (href) => {
+    // Debug log
+    console.log('Navigating to:', href);
+    
     // Close any open dropdown when navigating
     setActiveDropdown(null);
 
     // Handle regular page routes (like /contact)
     if (href.startsWith('/') && !href.includes('#')) {
       navigate(href);
-      // Scroll to top when navigating to a new page
-      setTimeout(() => {
+      // Ensure we're at the top of the new page
+      requestAnimationFrame(() => {
         window.scrollTo({ top: 0, behavior: 'smooth' });
-      }, 100);
+      });
       return;
     }
 
@@ -92,36 +90,58 @@ const NavigationContainer = () => {
         setTimeout(() => {
           const element = document.querySelector(hash);
           if (element) {
-            element.scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'start'
+            // Account for sticky navbar height
+            const navbarHeight = 80; // Adjust this based on your navbar height
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
             });
+          } else {
+            console.warn(`Element not found: ${hash}`);
           }
-        }, 50);
+        }, 100); // Small delay to ensure DOM is ready
       } else {
         // Navigate to home page first, then scroll
         navigate('/');
+        // Wait for navigation to complete and DOM to update
         setTimeout(() => {
           const element = document.querySelector(hash);
           if (element) {
-            element.scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'start'
+            const navbarHeight = 80;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
             });
+          } else {
+            console.warn(`Element not found after navigation: ${hash}`);
           }
-        }, 300); // Longer delay for page transition
+        }, 500); // Longer delay for page navigation
       }
     }
 
     // Handle anchor links on current page (#section)
     else if (href.startsWith('#')) {
-      const element = document.querySelector(href);
-      if (element) {
-        element.scrollIntoView({ 
-          behavior: 'smooth',
-          block: 'start'
-        });
-      }
+      setTimeout(() => {
+        const element = document.querySelector(href);
+        if (element) {
+          const navbarHeight = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        } else {
+          console.warn(`Element not found: ${href}`);
+        }
+      }, 100);
     }
   };
 
@@ -133,12 +153,16 @@ const NavigationContainer = () => {
         setTimeout(() => {
           const element = document.querySelector(hash);
           if (element) {
-            element.scrollIntoView({ 
-              behavior: 'smooth',
-              block: 'start'
+            const navbarHeight = 80;
+            const elementPosition = element.getBoundingClientRect().top;
+            const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+            
+            window.scrollTo({
+              top: offsetPosition,
+              behavior: 'smooth'
             });
           }
-        }, 300);
+        }, 500); // Increased delay for initial load
       }
     };
 
@@ -150,9 +174,13 @@ const NavigationContainer = () => {
       if (hash && location.pathname === '/') {
         const element = document.querySelector(hash);
         if (element) {
-          element.scrollIntoView({ 
-            behavior: 'smooth',
-            block: 'start'
+          const navbarHeight = 80;
+          const elementPosition = element.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - navbarHeight;
+          
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
           });
         }
       }

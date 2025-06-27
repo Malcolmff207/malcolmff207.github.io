@@ -49,18 +49,50 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
 
   const handleMobileNavClick = (e, href) => {
     e.preventDefault();
-    setIsMenuOpen(false);
+    // Navigate first
     if (onNavigate) {
       onNavigate(href);
     }
+    // Then close menu with slight delay
+    setTimeout(() => {
+      setIsMenuOpen(false);
+    }, 150);
   };
 
+  // FIXED: Mobile dropdown item click handler
   const handleMobileDropdownItemClick = (e, href) => {
     e.preventDefault();
-    setActiveDropdown(null);
-    setIsMenuOpen(false);
+    e.stopPropagation(); // Prevent event bubbling
+    
+    console.log('Mobile navigation to:', href); // Debug
+    
+    // Navigate immediately
     if (onNavigate) {
       onNavigate(href);
+    }
+    
+    // Close everything after a short delay
+    setTimeout(() => {
+      setActiveDropdown(null);
+      setIsMenuOpen(false);
+    }, 300);
+  };
+
+  // NEW: Handle mobile dropdown toggle with navigation
+  const handleMobileDropdownToggle = (item) => {
+    const dropdownKey = `mobile-${item.name}`;
+    
+    // If dropdown is already open, close it and navigate to main section
+    if (activeDropdown === dropdownKey) {
+      setActiveDropdown(null);
+      // Navigate to the parent item's href
+      if (onNavigate && item.href) {
+        onNavigate(item.href);
+        setTimeout(() => setIsMenuOpen(false), 300);
+      }
+    } else {
+      // Open the dropdown
+      setActiveDropdown(dropdownKey);
     }
   };
 
@@ -84,7 +116,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
               </span>
             </div>
 
-            {/* Desktop Navigation */}
+            {/* Desktop Navigation - UNCHANGED */}
             <div className="hidden md:flex items-center space-x-1" ref={dropdownRef}>
               {navigationItems.map((item) => (
                 <div key={item.name} className="relative">
@@ -172,7 +204,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
             </div>
           </div>
 
-          {/* Mobile Menu */}
+          {/* Mobile Menu - FIXED */}
           {isMenuOpen && (
             <div className="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 animate-in fade-in slide-in-from-top-2 duration-200">
               <div className="space-y-2">
@@ -181,7 +213,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                     {item.dropdown ? (
                       <div>
                         <button
-                          onClick={() => toggleDropdown(`mobile-${item.name}`)}
+                          onClick={() => handleMobileDropdownToggle(item)}
                           className="flex items-center justify-between w-full px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
                         >
                           <div className="flex items-center space-x-3">
@@ -197,14 +229,13 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                         {activeDropdown === `mobile-${item.name}` && (
                           <div className="pl-8 pt-2 space-y-1">
                             {item.dropdown.map((dropdownItem) => (
-                              <a
+                              <button
                                 key={dropdownItem.name}
-                                href={dropdownItem.href}
-                                className="block px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors duration-150"
                                 onClick={(e) => handleMobileDropdownItemClick(e, dropdownItem.href)}
+                                className="block w-full text-left px-4 py-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-colors duration-150"
                               >
                                 {dropdownItem.name}
-                              </a>
+                              </button>
                             ))}
                           </div>
                         )}

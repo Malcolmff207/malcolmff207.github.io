@@ -349,24 +349,61 @@ export const FAQAccordionSkeleton = () => {
  * Skeleton loader for Project Card
  */
 export const ProjectCardSkeleton = () => {
-  return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
-      <Skeleton variant="rectangular" height="200px" />
-      <div className="p-6">
-        <Skeleton variant="text" width="150px" height="24px" className="mb-2" />
-        <Skeleton variant="text" className="mb-1" />
-        <Skeleton variant="text" className="mb-1" />
-        <Skeleton variant="text" width="80%" className="mb-4" />
-        <div className="flex flex-wrap gap-2 mb-4">
-          {[1, 2, 3].map((tag) => (
-            <Skeleton key={tag} variant="rounded" width="60px" height="24px" />
-          ))}
+    return (
+        <div className="bg-white dark:bg-gray-800 rounded-lg shadow-lg overflow-hidden">
+        <Skeleton variant="rectangular" height="200px" />
+        <div className="p-6">
+            <Skeleton variant="text" width="150px" height="24px" className="mb-2" />
+            <Skeleton variant="text" className="mb-1" />
+            <Skeleton variant="text" className="mb-1" />
+            <Skeleton variant="text" width="80%" className="mb-4" />
+            <div className="flex flex-wrap gap-2 mb-4">
+            {[1, 2, 3].map((tag) => (
+                <Skeleton key={tag} variant="rounded" width="60px" height="24px" />
+            ))}
+            </div>
+            <div className="flex justify-between">
+            <Skeleton variant="rounded" width="100px" height="36px" />
+            <Skeleton variant="rounded" width="100px" height="36px" />
+            </div>
         </div>
-        <div className="flex justify-between">
-          <Skeleton variant="rounded" width="100px" height="36px" />
-          <Skeleton variant="rounded" width="100px" height="36px" />
         </div>
-      </div>
-    </div>
-  );
+    );
+};
+
+/**
+ * Skeleton loader for Projects Page
+ */
+export const ProjectsPageSkeleton = () => {
+    return (
+        <div className="bg-white dark:bg-gray-900 min-h-screen">
+        <div className="max-w-6xl mx-auto p-6 lg:ml-24">
+            {/* Header */}
+            <div className="text-center mb-12">
+            <Skeleton variant="circular" width="64px" height="64px" className="mx-auto mb-6" />
+            <Skeleton variant="text" width="200px" height="32px" className="mx-auto mb-4" />
+            <Skeleton variant="text" width="500px" height="20px" className="mx-auto" />
+            </div>
+
+            {/* Filter Tabs */}
+            <div className="flex flex-wrap justify-center gap-2 mb-8">
+            {[1, 2, 3, 4, 5].map((tab) => (
+                <Skeleton key={tab} variant="rounded" width="100px" height="36px" />
+            ))}
+            </div>
+
+            {/* Search Bar */}
+            <div className="max-w-md mx-auto mb-8">
+            <Skeleton variant="rectangular" height="48px" />
+            </div>
+
+            {/* Projects Grid */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {[1, 2, 3, 4, 5, 6].map((project) => (
+                <ProjectCardSkeleton key={project} />
+            ))}
+            </div>
+        </div>
+        </div>
+    );
 };
