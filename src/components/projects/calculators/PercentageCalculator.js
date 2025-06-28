@@ -1,4 +1,3 @@
-// components/calculators/PercentageCalculator.js
 import React, { useState } from 'react';
 
 const PercentageCalculator = () => {

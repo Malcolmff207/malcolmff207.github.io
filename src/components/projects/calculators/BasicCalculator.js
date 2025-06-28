@@ -1,4 +1,3 @@
-// components/calculators/BasicCalculator.js
 import React, { useState } from 'react';
 
 const BasicCalculator = () => {

@@ -1,6 +1,3 @@
-// hooks/index.js
-// Export all custom hooks from a single file for easier imports
-
 // Animation and UI Hooks
 export { useTypewriter } from './useTypewriter';
 export { 

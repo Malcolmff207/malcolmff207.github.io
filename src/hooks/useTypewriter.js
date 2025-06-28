@@ -1,4 +1,3 @@
-// hooks/useTypewriter.js
 import { useState, useEffect } from 'react';
 
 /**

@@ -1,4 +1,3 @@
-// src/components/projects/Calculator.js
 import React, { useState } from 'react';
 import { 
   BsCalculator, 

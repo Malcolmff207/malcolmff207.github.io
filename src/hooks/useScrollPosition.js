@@ -1,4 +1,3 @@
-// hooks/useScrollPosition.js
 import { useState, useEffect, useCallback } from 'react';
 
 /**

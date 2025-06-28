@@ -1,6 +1,3 @@
-// components/calculators/CalculatorTemplate.js
-// Template for creating new calculator components
-
 import React, { useState } from 'react';
 
 const CalculatorTemplate = () => {
