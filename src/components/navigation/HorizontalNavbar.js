@@ -2,14 +2,13 @@ import React, { useState, useRef, useEffect } from 'react';
 import { 
   FaCode, 
   FaChevronDown, 
-  FaBars, 
-  FaTimes,
   FaGithub,
   FaLinkedin,
   FaDownload
 } from 'react-icons/fa';
 import CVModal from '../CVModal';
 import ThemeToggle from '../ThemeToggle';
+import MobileMenu from './MobileMenu';
 
 const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, onNavigate }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -47,28 +46,13 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
     }
   };
 
-  // Mobile navigation - no dropdowns, simple links only
-  const handleMobileNavItemClick = (e, href) => {
-    e.preventDefault();
-    
-    // Navigate immediately
-    if (onNavigate) {
-      onNavigate(href);
-    }
-    
-    // Close menu
-    setTimeout(() => {
-      setIsMenuOpen(false);
-    }, 150);
-  };
-
   const handleDownloadResume = () => {
     setIsCVModalOpen(true);
   };
 
   return (
     <>
-      <nav className="bg-white/95 dark:bg-gray-900/95 backdrop-blur-md shadow-lg dark:shadow-gray-900/50 border-b border-gray-200 dark:border-gray-700 sticky top-0 z-50 transition-all duration-500 animate-in fade-in slide-in-from-top-2">
+      <nav className="bg-white dark:bg-gray-800 shadow-lg dark:shadow-gray-900/50 sticky top-0 z-50 transition-all duration-500 animate-in fade-in slide-in-from-top-2">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
             
@@ -131,7 +115,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
               ))}
             </div>
 
-            {/* Action Buttons */}
+            {/* Desktop Action Buttons */}
             <div className="hidden md:flex items-center space-x-3">
               <ThemeToggle />
               <a
@@ -139,6 +123,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
+                aria-label="GitHub Profile"
               >
                 <FaGithub className="text-lg" />
               </a>
@@ -147,6 +132,7 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
                 target="_blank"
                 rel="noopener noreferrer"
                 className="p-2 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
+                aria-label="LinkedIn Profile"
               >
                 <FaLinkedin className="text-lg" />
               </a>
@@ -159,65 +145,15 @@ const HorizontalNavbar = ({ navigationItems, activeDropdown, setActiveDropdown, 
               </button>
             </div>
 
-            {/* Mobile Menu Button */}
-            <div className="md:hidden">
-              <button
-                onClick={() => setIsMenuOpen(!isMenuOpen)}
-                className="p-2 text-gray-700 dark:text-gray-300 hover:text-gray-900 dark:hover:text-gray-100 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-colors duration-200"
-              >
-                {isMenuOpen ? <FaTimes className="text-xl" /> : <FaBars className="text-xl" />}
-              </button>
-            </div>
+            {/* Mobile Menu Component */}
+            <MobileMenu
+              isMenuOpen={isMenuOpen}
+              setIsMenuOpen={setIsMenuOpen}
+              navigationItems={navigationItems}
+              onNavigate={onNavigate}
+              onDownloadResume={handleDownloadResume}
+            />
           </div>
-
-          {/* Mobile Menu - SIMPLIFIED (No Dropdowns) */}
-          {isMenuOpen && (
-            <div className="md:hidden bg-white dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700 py-4 animate-in fade-in slide-in-from-top-2 duration-200">
-              <div className="space-y-2">
-                {navigationItems.map((item) => (
-                  <a
-                    key={item.name}
-                    href={item.href}
-                    className="flex items-center space-x-3 px-4 py-3 text-gray-700 dark:text-gray-300 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-gray-50 dark:hover:bg-gray-700 rounded-lg transition-all duration-200"
-                    onClick={(e) => handleMobileNavItemClick(e, item.href)}
-                  >
-                    <item.icon className="text-sm" />
-                    <span className="font-medium">{item.name}</span>
-                  </a>
-                ))}
-                
-                {/* Mobile Action Buttons */}
-                <div className="pt-4 border-t border-gray-200 dark:border-gray-700 space-y-3">
-                  <div className="flex justify-center space-x-4">
-                    <ThemeToggle />
-                    <a
-                      href="https://github.com"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
-                    >
-                      <FaGithub className="text-xl" />
-                    </a>
-                    <a
-                      href="https://www.linkedin.com/in/malcolm-farrugia-81bb6b199/"
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="p-3 text-gray-600 dark:text-gray-400 hover:text-blue-600 dark:hover:text-blue-400 hover:bg-blue-50 dark:hover:bg-blue-900/20 rounded-lg transition-all duration-200"
-                    >
-                      <FaLinkedin className="text-xl" />
-                    </a>
-                  </div>
-                  <button 
-                    onClick={handleDownloadResume}
-                    className="w-full flex items-center justify-center space-x-2 bg-gradient-to-r from-blue-600 to-purple-600 dark:from-blue-700 dark:to-purple-700 text-white px-4 py-3 rounded-lg hover:from-blue-700 hover:to-purple-700 dark:hover:from-blue-600 dark:hover:to-purple-600 transition-all duration-200 font-medium shadow-md"
-                  >
-                    <FaDownload className="text-sm" />
-                    <span>Download Resume</span>
-                  </button>
-                </div>
-              </div>
-            </div>
-          )}
         </div>
       </nav>
 

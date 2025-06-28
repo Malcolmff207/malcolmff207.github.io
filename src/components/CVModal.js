@@ -1,6 +1,10 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { FaDownload, FaPrint, FaTimes } from 'react-icons/fa';
 import { useTheme } from '../hooks/useTheme';
+import { TbWorldWww } from "react-icons/tb";
+import { FaLinkedin, FaCar, FaCalendarDay, FaPhoneAlt } from "react-icons/fa";
+import { FaLocationDot } from "react-icons/fa6";
+import { IoIosMail } from "react-icons/io";
 
 const CVModal = ({ isOpen, onClose }) => {
   const printRef = useRef();
@@ -241,12 +245,13 @@ const CVModal = ({ isOpen, onClose }) => {
     };
 
     const contactInfo = [
-      { icon: "📞", text: "+356 9919 4666", type: "phone" },
-      { icon: "✉", text: "Malcolmff207@gmail.com", type: "email" },
-      { icon: "📍", text: "SPB1028 Qawra", type: "address" },
-      { icon: "📅", text: "18/07/1997", type: "date" },
-      { icon: "🚗", text: "Valid – Driving Licence", type: "license" },
-      { icon: "💼", text: "linkedin.com/in/malcolm-farrugia-81bb6b199", type: "linkedin" }
+      { icon: <FaPhoneAlt />, text: "+356 9919 4666", type: "phone" },
+      { icon: <IoIosMail />, text: "Malcolmff207@gmail.com", type: "email" },
+      { icon: <FaLocationDot />, text: "SPB1028 Qawra", type: "address" },
+      { icon: <FaCalendarDay /> , text: "18/07/1997", type: "date" },
+      { icon: <FaCar />, text: "Valid – Driving Licence", type: "license" },
+      { icon: <FaLinkedin />, text: "linkedin.com/in/malcolm-farrugia-81bb6b199", type: "linkedin" },
+      { icon: <TbWorldWww />, text: "https://malcolmff207.github.io/", type: "website" }
     ];
 
     const skills = [
@@ -286,6 +291,7 @@ const CVModal = ({ isOpen, onClose }) => {
         case 'phone': return `tel:${item.text}`;
         case 'email': return `mailto:${item.text}`;
         case 'linkedin': return `https://www.linkedin.com/in/malcolm-farrugia-81bb6b199/`;
+        case 'website': return `https://malcolmff207.github.io/`;
         default: return '#';
       }
     };
