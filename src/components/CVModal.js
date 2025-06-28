@@ -577,7 +577,7 @@ const CVModal = ({ isOpen, onClose }) => {
                   cursor: 'pointer'
                 }}>
                   <span style={{ marginRight: '10px' }}>{c.icon}</span>
-                  {c.type === 'phone' || c.type === 'email' || c.type === 'linkedin' ? (
+                  {c.type === 'phone' || c.type === 'email' || c.type === 'linkedin' || c.type === 'website' ? (
                     <a href={getContactHref(c)} style={{ color: 'inherit', textDecoration: 'none' }}>
                       {c.text}
                     </a>
