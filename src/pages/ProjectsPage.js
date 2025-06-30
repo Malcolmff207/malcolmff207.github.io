@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { BsCode, BsBoxArrowUpRight } from 'react-icons/bs';
 import ProjectModal from '../components/ProjectModal';
 import Calculator from '../components/projects/Calculator';
+import WeatherApp from '../components/projects/WeatherApp';
 
 // Simple project card component
 const ProjectCard = ({ project, index, onClick }) => {
@@ -140,8 +141,8 @@ const ProjectsPage = () => {
       image: '/api/placeholder/400/250',
       technologies: ['React', 'OpenWeather API', 'Chart.js', 'CSS3'],
       status: 'completed',
-      featured: false,
-      component: null,
+      featured: true,
+      component: WeatherApp,
       highlights: [
         'Real-time weather data',
         '7-day forecast',
