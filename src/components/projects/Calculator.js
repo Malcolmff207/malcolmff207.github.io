@@ -11,7 +11,8 @@ import {
   BsCalendar2Date,
   BsBarChart,
   BsCode,
-  BsFire
+  BsFire,
+  BsChevronDown
 } from 'react-icons/bs';
 
 // Import individual calculator components
@@ -28,6 +29,7 @@ import {
 
 const Calculator = () => {
   const [activeTab, setActiveTab] = useState('basic');
+  const [mobileDropdownOpen, setMobileDropdownOpen] = useState(false);
 
   // Calculator tabs configuration
   const calculatorTabs = {
@@ -72,9 +74,73 @@ const Calculator = () => {
     );
   };
 
+  const handleMobileTabSelect = (key) => {
+    setActiveTab(key);
+    setMobileDropdownOpen(false);
+  };
+
   return (
     <div className="max-w-4xl mx-auto bg-white dark:bg-gray-800 rounded-xl shadow-lg overflow-hidden">
-      <div className="flex h-96">
+      {/* Mobile Calculator Selector */}
+      <div className="lg:hidden bg-gray-50 dark:bg-gray-700 border-b border-gray-200 dark:border-gray-600">
+        <div className="p-4">
+          <div className="relative">
+            <button
+              onClick={() => setMobileDropdownOpen(!mobileDropdownOpen)}
+              className="w-full flex items-center justify-between p-3 bg-white dark:bg-gray-600 rounded-lg border border-gray-200 dark:border-gray-500 hover:bg-gray-50 dark:hover:bg-gray-500 transition-colors"
+            >
+              <div className="flex items-center gap-3">
+                {React.createElement(calculatorTabs[activeTab].icon, {
+                  className: "w-5 h-5 text-gray-600 dark:text-gray-300"
+                })}
+                <span className="font-medium text-gray-800 dark:text-gray-200">
+                  {calculatorTabs[activeTab].title}
+                </span>
+              </div>
+              <BsChevronDown 
+                className={`w-4 h-4 text-gray-600 dark:text-gray-400 transition-transform duration-200 ${
+                  mobileDropdownOpen ? 'rotate-180' : ''
+                }`} 
+              />
+            </button>
+
+            {/* Mobile Dropdown */}
+            {mobileDropdownOpen && (
+              <div className="absolute top-full left-0 right-0 mt-1 bg-white dark:bg-gray-600 rounded-lg border border-gray-200 dark:border-gray-500 shadow-lg z-50 max-h-64 overflow-y-auto">
+                {Object.entries(calculatorTabs).map(([key, tab]) => {
+                  const TabIcon = tab.icon;
+                  const isActive = activeTab === key;
+                  const hasComponent = tab.component !== null;
+                  
+                  return (
+                    <button
+                      key={key}
+                      onClick={() => handleMobileTabSelect(key)}
+                      className={`w-full flex items-center gap-3 px-4 py-3 text-left border-b border-gray-100 dark:border-gray-500 last:border-b-0 transition-colors relative ${
+                        isActive 
+                          ? 'bg-blue-50 dark:bg-blue-900/20 text-blue-600 dark:text-blue-400' 
+                          : 'text-gray-700 dark:text-gray-300 hover:bg-gray-50 dark:hover:bg-gray-500'
+                      }`}
+                    >
+                      <TabIcon className="w-4 h-4 flex-shrink-0" />
+                      <span className="font-medium">{tab.title}</span>
+                      {!hasComponent && (
+                        <div className="absolute top-2 right-4 w-2 h-2 bg-yellow-400 rounded-full" title="Coming Soon" />
+                      )}
+                      {isActive && (
+                        <div className="absolute right-4 top-1/2 transform -translate-y-1/2 w-2 h-2 bg-blue-500 rounded-full" />
+                      )}
+                    </button>
+                  );
+                })}
+              </div>
+            )}
+          </div>
+        </div>
+      </div>
+
+      {/* Desktop Layout */}
+      <div className="hidden lg:flex h-96">
         {/* Left Sidebar - Calculator List */}
         <div className="w-64 bg-gray-50 dark:bg-gray-700 border-r border-gray-200 dark:border-gray-600 overflow-y-auto">
           <div className="p-2">
@@ -109,24 +175,52 @@ const Calculator = () => {
           </div>
         </div>
 
-        {/* Right Content Area */}
-       <div className={`flex-1 overflow-y-auto ${calculatorTabs[activeTab].component ? 'p-6' : 'px-6 pt-6'}`}>
-            {!calculatorTabs[activeTab].component && (
-                <div className="mb-6">
-                <div className="flex items-center gap-3 mb-2">
-                    {React.createElement(calculatorTabs[activeTab].icon, {
-                    className: "w-6 h-6 text-" + calculatorTabs[activeTab].color + "-500"
-                    })}
-                    <p className="text-gray-600 dark:text-gray-400 text-sm">
-                    This calculator will be available soon
-                    </p>
-                </div>
-                </div>
-            )}
+        {/* Right Content Area - Desktop */}
+        <div className={`flex-1 overflow-y-auto ${calculatorTabs[activeTab].component ? 'p-6' : 'px-6 pt-6'}`}>
+          {!calculatorTabs[activeTab].component && (
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-2">
+                {React.createElement(calculatorTabs[activeTab].icon, {
+                  className: "w-6 h-6 text-" + calculatorTabs[activeTab].color + "-500"
+                })}
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  This calculator will be available soon
+                </p>
+              </div>
+            </div>
+          )}
           
           {renderCalculator()}
         </div>
       </div>
+
+      {/* Mobile Content Area */}
+      <div className="lg:hidden">
+        <div className={`${calculatorTabs[activeTab].component ? 'p-4' : 'px-4 pt-4'} min-h-96`}>
+          {!calculatorTabs[activeTab].component && (
+            <div className="mb-6">
+              <div className="flex items-center gap-3 mb-2">
+                {React.createElement(calculatorTabs[activeTab].icon, {
+                  className: "w-6 h-6 text-" + calculatorTabs[activeTab].color + "-500"
+                })}
+                <p className="text-gray-600 dark:text-gray-400 text-sm">
+                  This calculator will be available soon
+                </p>
+              </div>
+            </div>
+          )}
+          
+          {renderCalculator()}
+        </div>
+      </div>
+
+      {/* Click outside to close dropdown */}
+      {mobileDropdownOpen && (
+        <div 
+          className="fixed inset-0 z-40 lg:hidden" 
+          onClick={() => setMobileDropdownOpen(false)}
+        />
+      )}
     </div>
   );
 };
