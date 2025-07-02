@@ -54,10 +54,10 @@ const AboutSection = () => {
   }
 
   const stats = [
-    { number: yearStarted, suffix: '', label: 'Started Development Journey', icon: FaRocket },
-    { number: yearsExperience, suffix: '+', label: 'Years Leadership Experience', icon: FaUsers },
-    { number: techCount, suffix: '+', label: 'Technologies Mastered', icon: FaCode },
-    { number: passionPercent, suffix: '%', label: 'Passion for Innovation', icon: FaHeart },
+    { number: yearStarted, suffix: '', label: 'Started Development Journey', icon: FaRocket, color: 'from-blue-500 to-blue-600' },
+    { number: yearsExperience, suffix: '+', label: 'Years Leadership Experience', icon: FaUsers, color: 'from-green-500 to-green-600' },
+    { number: techCount, suffix: '+', label: 'Technologies Mastered', icon: FaCode, color: 'from-purple-500 to-purple-600' },
+    { number: passionPercent, suffix: '%', label: 'Passion for Innovation', icon: FaHeart, color: 'from-red-500 to-red-600' },
   ];
 
   const skills = [
@@ -92,7 +92,7 @@ const AboutSection = () => {
             </p>
           </div>
 
-          <div className="grid lg:grid-cols-2 gap-12 items-start mb-16">
+          <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
             {/* Left: Story */}
             <div className="space-y-6">
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-blue-100 dark:border-gray-700">
@@ -113,81 +113,96 @@ const AboutSection = () => {
                     Before diving into code, I spent over 6 years in the hospitality industry as a Head-Bartender, where I honed my <span className="font-semibold text-blue-600 dark:text-blue-400">leadership skills, problem-solving abilities, and ability to perform under pressure</span>. These experiences taught me the importance of teamwork, attention to detail, and exceptional customer service.
                   </p>
                   <p>
-                    Currently, I'm working as an <span className="font-semibold text-blue-600 dark:text-blue-400">Apprentice Full Stack Developer at ITGU</span>, building intuitive and efficient applications using modern technologies like React and Node.js.
+                    Currently, I'm working as an <span className="font-semibold text-blue-600 dark:text-blue-400">Apprentice Full Stack Developer at ilGLU</span>, building intuitive and efficient applications using modern technologies like React and Node.js.
                   </p>
                 </div>
               </div>
+            </div>
 
-              {/* ✅ What Drives Me Section */}
-              <div className="bg-gradient-to-r from-blue-500 to-cyan-500 dark:from-blue-600 dark:to-cyan-600 rounded-2xl p-8 text-white">
-                <div className="flex items-center space-x-3 mb-4">
-                  <FaHeart className="text-2xl" />
-                  <h3 className="text-2xl font-bold">What Drives Me</h3>
+            {/* Right: Photo Collage */}
+            <div className="relative h-[580px] flex items-center justify-center">
+              {/* Photo collage container */}
+              <div className="relative w-full h-full max-w-md mx-auto">
+                
+                {/* Main large photo - Takes majority of space */}
+                <div className="absolute inset-0 w-full h-[520px] bg-white dark:bg-gray-800 rounded-3xl shadow-2xl transform hover:rotate-[0deg] transition-all duration-700 hover:scale-[1.02] hover:shadow-3xl overflow-hidden border-4 border-white dark:border-gray-700 z-10">
+                  <img 
+                    src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    alt="Professional workspace" 
+                    className="w-full h-full object-cover"
+                  />
                 </div>
-                <p className="text-blue-100 dark:text-blue-50 leading-relaxed">
+
+                {/* Small photo 1 - Top left overlay - INCREASED SIZE */}
+                <div className="absolute top-[-10px] left-[-24px] w-36 h-44 bg-white dark:bg-gray-800 rounded-2xl shadow-xl transform hover:rotate-[-5deg] transition-all duration-500 hover:scale-105 hover:shadow-2xl overflow-hidden border-3 border-white dark:border-gray-700 z-20">
+                  <img 
+                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    alt="Team collaboration" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Small photo 2 - Bottom right overlay - INCREASED SIZE */}
+                <div className="absolute bottom-10 right-[-24px] w-40 h-48 bg-white dark:bg-gray-800 rounded-2xl shadow-xl transform hover:rotate-[8deg] transition-all duration-500 hover:scale-105 hover:shadow-2xl overflow-hidden border-3 border-white dark:border-gray-700 z-20">
+                  <img 
+                    src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    alt="Development setup" 
+                    className="w-full h-full object-cover"
+                  />
+                </div>
+
+                {/* Experience badge - Bottom left */}
+                <div className="absolute bottom-8 left-8 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-2xl px-4 py-3 shadow-xl z-30 flex items-center space-x-3 border-2 border-white">
+                  <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                    <FaCode className="text-sm" />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold">{yearsExperience}+</div>
+                    <div className="text-xs opacity-90 font-medium">Years Experience</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Stats Section - Now at the Bottom */}
+          <div className="mb-16">
+            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom duration-700 delay-600">
+              {stats.map(({ number, suffix, label, icon: Icon, color }, index) => (
+                <div
+                  key={index}
+                  className="group relative bg-white dark:bg-gray-800 rounded-2xl p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all duration-500 hover:transform hover:-translate-y-2 shadow-lg hover:shadow-xl"
+                >
+                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                  
+                  <div className="relative z-10">
+                    <div className={`w-12 h-12 bg-gradient-to-r ${color} rounded-xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
+                      <Icon className="text-white text-lg" />
+                    </div>
+                    <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
+                      {number}{suffix}
+                    </div>
+                    <div className="text-xs font-semibold text-gray-700 dark:text-gray-300">{label}</div>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          {/* What Drives Me Section - Full Width */}
+          <div className="mb-16">
+            <div className="bg-gradient-to-r from-blue-500 to-cyan-500 dark:from-blue-600 dark:to-cyan-600 rounded-2xl p-8 lg:p-12 text-white shadow-xl">
+              <div className="max-w-4xl mx-auto text-center">
+                <div className="flex items-center justify-center space-x-3 mb-6">
+                  <FaHeart className="text-3xl" />
+                  <h3 className="text-3xl font-bold">What Drives Me</h3>
+                </div>
+                <p className="text-blue-100 dark:text-blue-50 leading-relaxed text-lg">
                   I believe that great software is born from understanding people's needs and solving their problems elegantly.
                   My background in hospitality gives me a unique perspective on user experience — I know what it means to anticipate
                   needs and deliver exceptional service. This translates into my approach to development, where I focus on creating
                   applications that are not just functional, but delightful to use.
                 </p>
-              </div>
-            </div>
-
-            {/* Right: Stats and Skills */}
-            <div className="space-y-8">
-              {/* Stats */}
-              <div className="grid grid-cols-2 gap-4">
-                {stats.map(({ number, suffix, label, icon: Icon }, index) => (
-                  <div
-                    key={index}
-                    className="bg-white dark:bg-gray-800 rounded-xl p-6 shadow-lg border border-blue-100 dark:border-gray-700 text-center hover:shadow-xl transition-shadow"
-                  >
-                    <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-lg mx-auto mb-3 flex items-center justify-center">
-                      <Icon className="text-white text-xl" />
-                    </div>
-                    <div className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-1">
-                      {number}{suffix}
-                    </div>
-                    <div className="text-sm text-gray-600 dark:text-gray-400">{label}</div>
-                  </div>
-                ))}
-              </div>
-
-              {/* Skills */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-blue-100 dark:border-gray-700">
-                <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-6 flex items-center">
-                  <FaCode className="text-blue-500 mr-3" />
-                  Technical Skills
-                </h3>
-                <div className="space-y-6">
-                  {skills.map((skillGroup, index) => (
-                    <div key={index}>
-                      <h4 className="font-semibold text-gray-700 dark:text-gray-300 mb-3">{skillGroup.category}</h4>
-                      <div className="flex flex-wrap gap-2">
-                        {skillGroup.items.map((skill, skillIndex) => (
-                          <span
-                            key={skillIndex}
-                            className="px-3 py-1 bg-blue-50 dark:bg-blue-900/30 text-blue-700 dark:text-blue-300 rounded-full text-sm border border-blue-200 dark:border-blue-700"
-                          >
-                            {skill}
-                          </span>
-                        ))}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* CV Modal Trigger */}
-              <div className="bg-white dark:bg-gray-800 rounded-2xl p-6 shadow-lg border border-blue-100 dark:border-gray-700 text-center">
-                <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-4">Want to Know More?</h3>
-                <button
-                  onClick={() => setIsCVModalOpen(true)}
-                  className="inline-flex items-center space-x-2 bg-gradient-to-r from-blue-500 to-cyan-500 text-white px-6 py-3 rounded-lg font-semibold hover:from-blue-600 hover:to-cyan-600 transition-all duration-200 hover:scale-105 shadow-lg"
-                >
-                  <FaDownload />
-                  <span>View My Resume</span>
-                </button>
               </div>
             </div>
           </div>
