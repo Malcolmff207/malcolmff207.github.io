@@ -42,14 +42,6 @@ const Footer = () => {
     { name: 'Contact', href: '#contact' }
   ];
 
-  const services = [
-    { name: 'Web Development', href: '#web-dev' },
-    { name: 'Frontend Design', href: '#frontend' },
-    { name: 'Backend Development', href: '#backend' },
-    { name: 'API Integration', href: '#api' },
-    { name: 'Cloud Solutions', href: '#cloud' }
-  ];
-
   const technologies = [
     { icon: FaReact, name: 'React' },
     { icon: FaNodeJs, name: 'Node.js' },
@@ -86,7 +78,7 @@ const Footer = () => {
         <div className="relative z-10">
           {/* Main Footer Content - Added left margin for sidebar */}
           <div className="lg:ml-20 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-16 pb-8">
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-12">
               
               {/* Brand Section */}
               <div className="lg:col-span-1">
@@ -106,7 +98,7 @@ const Footer = () => {
                 <div className="space-y-3">
                   <div className="flex items-center space-x-3 text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 transition-colors duration-200">
                     <FaEnvelope className="text-blue-400 dark:text-blue-300" />
-                    <a href="mailto:malcolmff207@gmail.com" className="hover:underline">malcolmff207@gmail.com</a>
+                    <a href="/contact" className="hover:underline">malcolmff207@gmail.com</a>
                   </div>
                   <div className="flex items-center space-x-3 text-gray-300 dark:text-gray-400 hover:text-white dark:hover:text-gray-200 transition-colors duration-200">
                     <FaPhone className="text-blue-400 dark:text-blue-300" />
@@ -131,24 +123,6 @@ const Footer = () => {
                       >
                         <span className="w-0 group-hover:w-2 h-0.5 bg-blue-400 dark:bg-blue-300 transition-all duration-200 mr-0 group-hover:mr-2"></span>
                         {link.name}
-                      </a>
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              {/* Services */}
-              <div className="text-center">
-                <h3 className="text-xl font-semibold mb-6 text-white">Services</h3>
-                <ul className="space-y-3">
-                  {services.map((service) => (
-                    <li key={service.name}>
-                      <a 
-                        href={service.href}
-                        className="text-gray-300 dark:text-gray-400 hover:text-blue-400 dark:hover:text-blue-300 transition-colors duration-200 inline-flex items-center group"
-                      >
-                        <span className="w-0 group-hover:w-2 h-0.5 bg-blue-400 dark:bg-blue-300 transition-all duration-200 mr-0 group-hover:mr-2"></span>
-                        {service.name}
                       </a>
                     </li>
                   ))}
@@ -184,7 +158,7 @@ const Footer = () => {
                     <FaLinkedin className="text-xl text-gray-400 dark:text-gray-500 group-hover:text-blue-400 dark:group-hover:text-blue-300 transition-colors duration-200" />
                   </a>
                   <a 
-                    href="https://github.com"
+                    href="https://github.com/Malcolmff207"
                     target="_blank"
                     rel="noopener noreferrer" 
                     className="p-3 bg-white/10 dark:bg-white/5 rounded-lg hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 hover:scale-110 group"
@@ -193,7 +167,7 @@ const Footer = () => {
                     <FaGithub className="text-xl text-gray-400 dark:text-gray-500 group-hover:text-white dark:group-hover:text-gray-200 transition-colors duration-200" />
                   </a>
                   <a 
-                    href="https://facebook.com"
+                    href="https://www.facebook.com/malcolm.farrugia.37/"
                     target="_blank"
                     rel="noopener noreferrer" 
                     className="p-3 bg-white/10 dark:bg-white/5 rounded-lg hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 hover:scale-110 group"
@@ -202,14 +176,14 @@ const Footer = () => {
                     <FaFacebook className="text-xl text-gray-400 dark:text-gray-500 group-hover:text-blue-600 dark:group-hover:text-blue-500 transition-colors duration-200" />
                   </a>
                   <a 
-                    href="mailto:malcolmff207@gmail.com"
+                    href="/contact"
                     className="p-3 bg-white/10 dark:bg-white/5 rounded-lg hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 hover:scale-110 group"
                     title="Gmail"
                   >
                     <FaEnvelope className="text-xl text-gray-400 dark:text-gray-500 group-hover:text-red-400 dark:group-hover:text-red-300 transition-colors duration-200" />
                   </a>
                   <a 
-                    href="https://instagram.com"
+                    href="https://www.instagram.com/malc.farrugia/?hl=en"
                     target="_blank"
                     rel="noopener noreferrer" 
                     className="p-3 bg-white/10 dark:bg-white/5 rounded-lg hover:bg-white/20 dark:hover:bg-white/10 transition-all duration-200 hover:scale-110 group"

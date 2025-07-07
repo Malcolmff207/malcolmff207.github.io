@@ -76,7 +76,7 @@ const MobileMenu = ({
                   <div className="flex justify-center space-x-4">
                     <ThemeToggle />
                     <a
-                      href="https://github.com"
+                      href="https://github.com/Malcolmff207"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="p-3 text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200 hover:bg-gray-100 dark:hover:bg-gray-800 rounded-lg transition-all duration-200"
