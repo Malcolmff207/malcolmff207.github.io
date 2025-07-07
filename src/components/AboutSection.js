@@ -9,10 +9,53 @@ import {
   FaRocket,
   FaDownload,
 } from 'react-icons/fa';
-import { useAnimatedCounter } from '../hooks/useAnimatedProgress';
-import { useLoading } from '../hooks/useLoading';
-import { AboutSectionSkeleton } from './skeletons';
-import CVModal from './CVModal';
+
+// Mock hooks for demo
+const useAnimatedCounter = (target, duration, delay) => {
+  const [count, setCount] = useState(0);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      const interval = setInterval(() => {
+        setCount(prev => {
+          if (prev >= target) {
+            clearInterval(interval);
+            return target;
+          }
+          return Math.min(prev + Math.ceil(target / 50), target);
+        });
+      }, duration / 50);
+      
+      return () => clearInterval(interval);
+    }, delay);
+    
+    return () => clearTimeout(timer);
+  }, [target, duration, delay]);
+  
+  return { count };
+};
+
+const useLoading = (duration) => {
+  const [isLoading, setIsLoading] = useState(true);
+  
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setIsLoading(false);
+    }, duration);
+    
+    return () => clearTimeout(timer);
+  }, [duration]);
+  
+  return { isLoading, stopLoading: () => setIsLoading(false) };
+};
+
+const AboutSectionSkeleton = () => (
+  <div className="animate-pulse p-8">
+    <div className="h-8 bg-gray-300 rounded mb-4"></div>
+    <div className="h-4 bg-gray-300 rounded mb-2"></div>
+    <div className="h-4 bg-gray-300 rounded"></div>
+  </div>
+);
 
 const AboutSection = () => {
   const [isCVModalOpen, setIsCVModalOpen] = useState(false);
@@ -52,28 +95,6 @@ const AboutSection = () => {
       </div>
     );
   }
-
-  const stats = [
-    { number: yearStarted, suffix: '', label: 'Started Development Journey', icon: FaRocket, color: 'from-blue-500 to-blue-600' },
-    { number: yearsExperience, suffix: '+', label: 'Years Leadership Experience', icon: FaUsers, color: 'from-green-500 to-green-600' },
-    { number: techCount, suffix: '+', label: 'Technologies Mastered', icon: FaCode, color: 'from-purple-500 to-purple-600' },
-    { number: passionPercent, suffix: '%', label: 'Passion for Innovation', icon: FaHeart, color: 'from-red-500 to-red-600' },
-  ];
-
-  const skills = [
-    {
-      category: 'Frontend',
-      items: ['React.js', 'JavaScript', 'HTML5', 'CSS3', 'Tailwind CSS', 'Bootstrap'],
-    },
-    {
-      category: 'Backend',
-      items: ['Node.js', 'Next.js', 'Python', 'C#', 'API Development'],
-    },
-    {
-      category: 'Tools & Others',
-      items: ['Git', 'Unity', 'Godot', 'Blender', 'Postman', 'Problem Solving'],
-    },
-  ];
 
   return (
     <>
@@ -118,25 +139,40 @@ const AboutSection = () => {
                 </div>
               </div>
 
-              {/* Started Development Journey - Overlay on story section */}
-              <div className="absolute top-[-50px] right-[25px] bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl px-4 py-3 shadow-xl z-30 flex items-center space-x-3 border-2 border-white">
-                <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                  <FaRocket className="text-sm" />
+              {/* Started Development Journey Badge - Responsive positioning */}
+              <div className="absolute 
+                top-[-20px] right-2 
+                sm:top-[-30px] sm:right-4 
+                md:top-[-40px] md:right-6 
+                lg:top-[-50px] lg:right-[25px] 
+                bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-xl lg:rounded-2xl 
+                px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-3 
+                shadow-lg lg:shadow-xl z-30 flex items-center 
+                space-x-1 sm:space-x-2 md:space-x-3 
+                border border-white lg:border-2">
+                <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-white/20 backdrop-blur-sm rounded-lg md:rounded-xl flex items-center justify-center">
+                  <FaRocket className="text-xs sm:text-sm" />
                 </div>
                 <div>
-                  <div className="text-2xl font-bold">{yearStarted}</div>
-                  <div className="text-xs opacity-90 font-medium">Started Development Journey</div>
+                  <div className="text-lg sm:text-xl md:text-2xl font-bold">{yearStarted}</div>
+                  <div className="text-[10px] sm:text-xs opacity-90 font-medium leading-tight">
+                    Started Development<br className="sm:hidden" /> Journey
+                  </div>
                 </div>
               </div>
             </div>
 
             {/* Right: Photo Collage */}
-            <div className="relative h-[580px] flex items-center justify-center">
+            <div className="relative h-[400px] sm:h-[480px] md:h-[520px] lg:h-[580px] flex items-center justify-center">
               {/* Photo collage container */}
               <div className="relative w-full h-full max-w-md mx-auto">
                 
-                {/* Main large photo - Takes majority of space */}
-                <div className="absolute inset-0 w-full h-[520px] bg-white dark:bg-gray-800 rounded-3xl shadow-2xl transform hover:rotate-[0deg] transition-all duration-700 hover:scale-[1.02] hover:shadow-3xl overflow-hidden border-4 border-white dark:border-gray-700 z-10">
+                {/* Main large photo - Responsive sizing */}
+                <div className="absolute inset-0 w-full 
+                  h-[360px] sm:h-[440px] md:h-[480px] lg:h-[520px] 
+                  bg-white dark:bg-gray-800 rounded-2xl lg:rounded-3xl shadow-xl lg:shadow-2xl 
+                  transform hover:rotate-[0deg] transition-all duration-700 hover:scale-[1.02] hover:shadow-3xl 
+                  overflow-hidden border-2 lg:border-4 border-white dark:border-gray-700 z-10">
                   <img 
                     src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
                     alt="Professional workspace" 
@@ -144,8 +180,19 @@ const AboutSection = () => {
                   />
                 </div>
 
-                {/* Small photo 1 - Top left overlay - INCREASED SIZE */}
-                <div className="absolute top-[-10px] left-[-24px] w-36 h-44 bg-white dark:bg-gray-800 rounded-2xl shadow-xl transform hover:rotate-[-5deg] transition-all duration-500 hover:scale-105 hover:shadow-2xl overflow-hidden border-3 border-white dark:border-gray-700 z-20">
+                {/* Small photo 1 - Responsive positioning and sizing */}
+                <div className="absolute 
+                  top-[-5px] left-[-12px] 
+                  sm:top-[-8px] sm:left-[-16px] 
+                  md:top-[-10px] md:left-[-20px] 
+                  lg:top-[-10px] lg:left-[-24px] 
+                  w-24 h-28 
+                  sm:w-28 sm:h-32 
+                  md:w-32 md:h-36 
+                  lg:w-36 lg:h-44 
+                  bg-white dark:bg-gray-800 rounded-xl lg:rounded-2xl shadow-lg lg:shadow-xl 
+                  transform hover:rotate-[-5deg] transition-all duration-500 hover:scale-105 hover:shadow-2xl 
+                  overflow-hidden border-2 lg:border-3 border-white dark:border-gray-700 z-20">
                   <img 
                     src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
                     alt="Team collaboration" 
@@ -153,8 +200,19 @@ const AboutSection = () => {
                   />
                 </div>
 
-                {/* Small photo 2 - Bottom right overlay - INCREASED SIZE */}
-                <div className="absolute bottom-10 right-[-24px] w-40 h-48 bg-white dark:bg-gray-800 rounded-2xl shadow-xl transform hover:rotate-[8deg] transition-all duration-500 hover:scale-105 hover:shadow-2xl overflow-hidden border-3 border-white dark:border-gray-700 z-20">
+                {/* Small photo 2 - Responsive positioning and sizing */}
+                <div className="absolute 
+                  bottom-6 right-[-12px] 
+                  sm:bottom-8 sm:right-[-16px] 
+                  md:bottom-8 md:right-[-20px] 
+                  lg:bottom-10 lg:right-[-24px] 
+                  w-28 h-32 
+                  sm:w-32 sm:h-36 
+                  md:w-36 md:h-40 
+                  lg:w-40 lg:h-48 
+                  bg-white dark:bg-gray-800 rounded-xl lg:rounded-2xl shadow-lg lg:shadow-xl 
+                  transform hover:rotate-[8deg] transition-all duration-500 hover:scale-105 hover:shadow-2xl 
+                  overflow-hidden border-2 lg:border-3 border-white dark:border-gray-700 z-20">
                   <img 
                     src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
                     alt="Development setup" 
@@ -162,14 +220,25 @@ const AboutSection = () => {
                   />
                 </div>
 
-                {/* Experience badge - Bottom left */}
-                <div className="absolute bottom-8 left-8 bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-2xl px-4 py-3 shadow-xl z-30 flex items-center space-x-3 border-2 border-white">
-                  <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                    <FaCode className="text-sm" />
+                {/* Experience badge - Responsive positioning and sizing */}
+                <div className="absolute 
+                  bottom-4 left-4 
+                  sm:bottom-6 sm:left-6 
+                  md:bottom-7 md:left-7 
+                  lg:bottom-8 lg:left-8 
+                  bg-gradient-to-r from-teal-500 to-teal-600 text-white rounded-xl lg:rounded-2xl 
+                  px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-3 
+                  shadow-lg lg:shadow-xl z-30 flex items-center 
+                  space-x-1 sm:space-x-2 md:space-x-3 
+                  border border-white lg:border-2">
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-white/20 backdrop-blur-sm rounded-lg md:rounded-xl flex items-center justify-center">
+                    <FaCode className="text-xs sm:text-sm" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold">{yearsExperience}+</div>
-                    <div className="text-xs opacity-90 font-medium">Years Experience</div>
+                    <div className="text-lg sm:text-xl md:text-2xl font-bold">{yearsExperience}+</div>
+                    <div className="text-[10px] sm:text-xs opacity-90 font-medium leading-tight">
+                      Years<br className="sm:hidden" /> Experience
+                    </div>
                   </div>
                 </div>
               </div>
@@ -178,35 +247,43 @@ const AboutSection = () => {
 
           {/* What Drives Me Section - Full Width */}
           <div className="mb-16">
-            <div className="relative bg-gradient-to-r from-blue-500 to-cyan-500 dark:from-blue-600 dark:to-cyan-600 rounded-2xl p-8 lg:p-12 text-white shadow-xl">
+            <div className="relative bg-gradient-to-r from-blue-500 to-cyan-500 dark:from-blue-600 dark:to-cyan-600 rounded-2xl p-6 sm:p-8 lg:p-12 text-white shadow-xl">
               
-               {/* Passion for Innovation - Overlaid on blue section */}
-                <div className="absolute bottom-[-30px] right-8 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-2xl px-4 py-3 shadow-xl z-30 flex items-center space-x-3 border-2 border-white">
-                  <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
-                    <FaHeart className="text-sm" />
+               {/* Passion for Innovation Badge - Responsive positioning and sizing */}
+                <div className="absolute 
+                  bottom-[-15px] right-2 
+                  sm:bottom-[-20px] sm:right-4 
+                  md:bottom-[-25px] md:right-6 
+                  lg:bottom-[-30px] lg:right-8 
+                  bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl lg:rounded-2xl 
+                  px-2 py-2 sm:px-3 sm:py-2 md:px-4 md:py-3 
+                  shadow-lg lg:shadow-xl z-30 flex items-center 
+                  space-x-1 sm:space-x-2 md:space-x-3 
+                  border border-white lg:border-2">
+                  <div className="w-6 h-6 sm:w-7 sm:h-7 md:w-8 md:h-8 bg-white/20 backdrop-blur-sm rounded-lg md:rounded-xl flex items-center justify-center">
+                    <FaHeart className="text-xs sm:text-sm" />
                   </div>
                   <div>
-                    <div className="text-2xl font-bold">{passionPercent}%</div>
-                    <div className="text-xs opacity-90 font-medium">Passion for Innovation</div>
+                    <div className="text-lg sm:text-xl md:text-2xl font-bold">{passionPercent}%</div>
+                    <div className="text-[10px] sm:text-xs opacity-90 font-medium leading-tight">
+                      Passion for<br className="sm:hidden" /> Innovation
+                    </div>
                   </div>
                 </div>
               
               <div className="max-w-4xl mx-auto text-center">
                 <div className="flex items-center justify-center space-x-3 mb-6">
-                  <FaHeart className="text-3xl" />
-                  <h3 className="text-3xl font-bold">What Drives Me</h3>
+                  <FaHeart className="text-2xl md:text-3xl" />
+                  <h3 className="text-2xl md:text-3xl font-bold">What Drives Me</h3>
                 </div>
-                <p className="text-blue-100 dark:text-blue-50 leading-relaxed text-lg">
-                  Both technology and I are constantly changing. The approach to UI/UX design and web development is shaped by my desire to remain up to date and continuously improve. Using technologies like React , Next and Node.js or any other framwork, I'm passionate about developing user-friendly UI/UX, aesthetically appealing applications. I always try to create experiences that make users happy.
+                <p className="text-blue-100 dark:text-blue-50 leading-relaxed text-base md:text-lg">
+                  Both technology and I are constantly changing. The approach to UI/UX design and web development is shaped by my desire to remain up to date and continuously improve. Using technologies like React , Next and Node.js or any other framwork, I'm passionate about developing user-friendly UI/UX, aesthetically appealing applications. I always try to create experiences that make users happy.
                 </p>
               </div>
             </div>
           </div>
         </div>
       </section>
-
-      {/* CV Modal */}
-      <CVModal isOpen={isCVModalOpen} onClose={() => setIsCVModalOpen(false)} />
     </>
   );
 };

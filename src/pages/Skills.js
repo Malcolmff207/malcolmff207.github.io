@@ -64,7 +64,7 @@ const Skills = () => {
         { name: "HTML/CSS", level: 92, description: "Semantic HTML, responsive design, animations" },
         { name: "Tailwind CSS", level: 88, description: "Utility-first CSS framework, custom components" },
         { name: "TypeScript", level: 75, description: "Type safety, interfaces, advanced types" },
-        { name: "Next.js", level: 80, description: "Server-side rendering, routing, optimization" }
+        { name: "Next.js", level: 70, description: "Server-side rendering, routing, optimization" }
       ]
     },
     backend: {
@@ -74,7 +74,6 @@ const Skills = () => {
       color: "green",
       skills: [
         { name: "Node.js", level: 82, description: "Server-side JavaScript, API development" },
-        { name: "Python", level: 78, description: "Web development, automation, data processing" },
         { name: "C#", level: 70, description: "Object-oriented programming, .NET framework" },
         { name: "RESTful APIs", level: 85, description: "API design, HTTP methods, authentication" },
         { name: "Express.js", level: 80, description: "Web framework, middleware, routing" }
@@ -86,10 +85,9 @@ const Skills = () => {
       icon: BsDatabase,
       color: "purple",
       skills: [
-        { name: "MongoDB", level: 75, description: "NoSQL database, aggregation, indexing" },
-        { name: "MySQL", level: 72, description: "Relational database, queries, optimization" },
-        { name: "Git", level: 88, description: "Version control, branching, collaboration" },
-        { name: "Postman", level: 85, description: "API testing, documentation, automation" },
+        { name: "MySQL", level: 70, description: "Relational database, queries, optimization" },
+        { name: "Git", level: 70, description: "Version control, branching, collaboration" },
+        { name: "Postman", level: 80, description: "API testing, documentation, automation" },
         { name: "AWS", level: 65, description: "Cloud services, deployment, scaling" }
       ]
     },
@@ -100,10 +98,10 @@ const Skills = () => {
       color: "pink",
       skills: [
         { name: "UI/UX Design", level: 80, description: "User interface design, user experience principles" },
-        { name: "Figma", level: 75, description: "Design prototyping, collaboration, components" },
-        { name: "Blender", level: 70, description: "3D modeling, animation, rendering" },
-        { name: "Unity", level: 78, description: "Game development, 3D programming, physics" },
-        { name: "Photoshop", level: 68, description: "Image editing, digital art, design" }
+        { name: "Figma", level: 70, description: "Design prototyping, collaboration, components" },
+        { name: "Blender", level: 80, description: "3D modeling, animation, rendering" },
+        { name: "Unity", level: 85, description: "Game development, 3D programming, physics" },
+        { name: "Photoshop", level: 75, description: "Image editing, digital art, design" }
       ]
     },
     mobile: {
@@ -112,10 +110,8 @@ const Skills = () => {
       icon: BsPhone,
       color: "indigo",
       skills: [
-        { name: "React Native", level: 72, description: "Cross-platform mobile development" },
         { name: "Unity 3D", level: 78, description: "Game development, C# scripting" },
-        { name: "Mobile UI", level: 75, description: "Responsive design, touch interfaces" },
-        { name: "Game Physics", level: 70, description: "Physics simulation, collision detection" }
+        { name: "Mobile UI", level: 83, description: "Responsive design, touch interfaces" },
       ]
     },
     tools: {
@@ -125,8 +121,7 @@ const Skills = () => {
       color: "orange",
       skills: [
         { name: "VS Code", level: 92, description: "Code editor, extensions, debugging" },
-        { name: "Webpack", level: 68, description: "Module bundling, optimization" },
-        { name: "npm/yarn", level: 85, description: "Package management, scripts" },
+        { name: "npm/yarn", level: 75, description: "Package management, scripts" },
         { name: "Chrome DevTools", level: 88, description: "Debugging, performance analysis" },
         { name: "Docker", level: 60, description: "Containerization, deployment" }
       ]

@@ -228,7 +228,17 @@ const CVModal = ({ isOpen, onClose }) => {
     }, 250);
   };
 
-  const handleDownload = handlePrint;
+    const handleDownload = () => {
+        const fileName = 'Malcolm Fenech Resume.pdf';
+        const link = document.createElement('a');
+        
+        link.href = '/Resume.pdf';
+        link.download = fileName;
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    };
 
   if (!isOpen) return null;
 
