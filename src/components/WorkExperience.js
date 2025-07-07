@@ -13,7 +13,7 @@ const WorkExperience = () => {
     {
       id: 1,
       title: "Apprentice Full Stack Developer",
-      company: "ITGU, Marsa",
+      company: "ILGLU, Marsa",
       period: "2024 - 2025",
       type: "Apprentice Position",
       description: "Gaining hands-on experience in full-stack development, working with modern web technologies and contributing to real-world projects.",
