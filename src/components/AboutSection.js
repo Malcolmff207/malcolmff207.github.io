@@ -94,7 +94,7 @@ const AboutSection = () => {
 
           <div className="grid lg:grid-cols-2 gap-12 items-start mb-12">
             {/* Left: Story */}
-            <div className="space-y-6">
+            <div className="space-y-6 relative">
               <div className="bg-white dark:bg-gray-800 rounded-2xl p-8 shadow-lg border border-blue-100 dark:border-gray-700">
                 <div className="flex items-center space-x-3 mb-6">
                   <div className="w-12 h-12 bg-gradient-to-r from-blue-500 to-cyan-500 rounded-xl flex items-center justify-center">
@@ -113,8 +113,19 @@ const AboutSection = () => {
                     Before diving into code, I spent over 6 years in the hospitality industry as a Head-Bartender, where I honed my <span className="font-semibold text-blue-600 dark:text-blue-400">leadership skills, problem-solving abilities, and ability to perform under pressure</span>. These experiences taught me the importance of teamwork, attention to detail, and exceptional customer service.
                   </p>
                   <p>
-                    Currently, I'm working as an <span className="font-semibold text-blue-600 dark:text-blue-400">Apprentice Full Stack Developer at ilGLU</span>, building intuitive and efficient applications using modern technologies like React and Node.js.
+                    During my work as an <span className="font-semibold text-blue-600 dark:text-blue-400">Apprentice Full Stack Developer at ilGLU</span>, where I developed a strong working knowledge of modern technologies like React, Next and Node.js.
                   </p>
+                </div>
+              </div>
+
+              {/* Started Development Journey - Overlay on story section */}
+              <div className="absolute top-[-50px] right-[25px] bg-gradient-to-r from-blue-500 to-blue-600 text-white rounded-2xl px-4 py-3 shadow-xl z-30 flex items-center space-x-3 border-2 border-white">
+                <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                  <FaRocket className="text-sm" />
+                </div>
+                <div>
+                  <div className="text-2xl font-bold">{yearStarted}</div>
+                  <div className="text-xs opacity-90 font-medium">Started Development Journey</div>
                 </div>
               </div>
             </div>
@@ -165,43 +176,28 @@ const AboutSection = () => {
             </div>
           </div>
 
-          {/* Stats Section - Now at the Bottom */}
-          <div className="mb-16">
-            <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 animate-in fade-in slide-in-from-bottom duration-700 delay-600">
-              {stats.map(({ number, suffix, label, icon: Icon, color }, index) => (
-                <div
-                  key={index}
-                  className="group relative bg-white dark:bg-gray-800 rounded-2xl p-6 text-center border border-gray-200 dark:border-gray-700 hover:border-blue-300 dark:hover:border-blue-500 transition-all duration-500 hover:transform hover:-translate-y-2 shadow-lg hover:shadow-xl"
-                >
-                  <div className="absolute inset-0 bg-gradient-to-br from-blue-50 to-cyan-50 dark:from-blue-900/20 dark:to-cyan-900/20 rounded-2xl opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                  
-                  <div className="relative z-10">
-                    <div className={`w-12 h-12 bg-gradient-to-r ${color} rounded-xl mx-auto mb-4 flex items-center justify-center group-hover:scale-110 transition-transform duration-300 shadow-lg`}>
-                      <Icon className="text-white text-lg" />
-                    </div>
-                    <div className="text-2xl font-bold text-gray-900 dark:text-white mb-1">
-                      {number}{suffix}
-                    </div>
-                    <div className="text-xs font-semibold text-gray-700 dark:text-gray-300">{label}</div>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
           {/* What Drives Me Section - Full Width */}
           <div className="mb-16">
-            <div className="bg-gradient-to-r from-blue-500 to-cyan-500 dark:from-blue-600 dark:to-cyan-600 rounded-2xl p-8 lg:p-12 text-white shadow-xl">
+            <div className="relative bg-gradient-to-r from-blue-500 to-cyan-500 dark:from-blue-600 dark:to-cyan-600 rounded-2xl p-8 lg:p-12 text-white shadow-xl">
+              
+               {/* Passion for Innovation - Overlaid on blue section */}
+                <div className="absolute bottom-[-30px] right-8 bg-gradient-to-r from-red-500 to-red-600 text-white rounded-2xl px-4 py-3 shadow-xl z-30 flex items-center space-x-3 border-2 border-white">
+                  <div className="w-8 h-8 bg-white/20 backdrop-blur-sm rounded-xl flex items-center justify-center">
+                    <FaHeart className="text-sm" />
+                  </div>
+                  <div>
+                    <div className="text-2xl font-bold">{passionPercent}%</div>
+                    <div className="text-xs opacity-90 font-medium">Passion for Innovation</div>
+                  </div>
+                </div>
+              
               <div className="max-w-4xl mx-auto text-center">
                 <div className="flex items-center justify-center space-x-3 mb-6">
                   <FaHeart className="text-3xl" />
                   <h3 className="text-3xl font-bold">What Drives Me</h3>
                 </div>
                 <p className="text-blue-100 dark:text-blue-50 leading-relaxed text-lg">
-                  I believe that great software is born from understanding people's needs and solving their problems elegantly.
-                  My background in hospitality gives me a unique perspective on user experience — I know what it means to anticipate
-                  needs and deliver exceptional service. This translates into my approach to development, where I focus on creating
-                  applications that are not just functional, but delightful to use.
+                  Both technology and I are constantly changing. The approach to UI/UX design and web development is shaped by my desire to remain up to date and continuously improve. Using technologies like React , Next and Node.js or any other framwork, I'm passionate about developing user-friendly UI/UX, aesthetically appealing applications. I always try to create experiences that make users happy.
                 </p>
               </div>
             </div>

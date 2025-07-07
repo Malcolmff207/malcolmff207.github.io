@@ -11,7 +11,7 @@ const FAQAccordion = () => {
     {
       id: 'tech-stack',
       question: "What's your preferred tech stack?",
-      answer: "I specialize in the MERN stack (MongoDB, Express.js, React, Node.js). I'm also proficient with TypeScript, Tailwind CSS, and various development tools. I enjoy working with modern frameworks and staying up-to-date with the latest technologies that improve development efficiency and user experience."
+      answer: " I'm proficient with TypeScript, Tailwind CSS, JavaScript (React, Vue, Next, Node) and various development tools. I enjoy working with modern frameworks and staying up-to-date with the latest technologies that improve development efficiency and user experience."
     },
     {
       id: 'development-process',
@@ -21,37 +21,32 @@ const FAQAccordion = () => {
     {
       id: 'availability',
       question: "Are you available for freelance work?",
-      answer: "I'm currently focused on securing a full-time position where I can grow my career and contribute to meaningful projects. However, I'm open to discussing interesting opportunities that align with my career goals and allow for professional development."
+      answer: "I'm currently focused on securing a full-time position where I can grow my career and contribute to meaningful projects. However, I'm open to discussing interesting opportunities that align with my career goals and allow for professional development and experience."
     },
     {
       id: 'career-transition',
       question: "Why did you transition from bartending to development?",
-      answer: "My hospitality background taught me invaluable problem-solving skills, working under pressure, and exceptional customer service. I discovered programming during my studies and found that the logical thinking and creativity required in development really resonated with me."
-    },
-    {
-      id: 'unique-value',
-      question: "What makes you different from other developers?",
-      answer: "My unique combination of 6+ years of leadership experience in hospitality gives me strong communication skills, ability to work under pressure, and a customer-focused mindset. I understand the importance of user experience from a service perspective."
+      answer: "My hospitality background taught me problem-solving skills, working under pressure, and exceptional customer service. I discovered programming during my studies and found that the logical thinking and creativity required in development really resonated with me."
     },
     {
       id: 'teamwork',
       question: "Do you work well in teams?",
-      answer: "Absolutely! My bartending experience taught me excellent teamwork and collaboration skills. I've led teams during busy periods, coordinated with kitchen staff, and ensured smooth operations. I believe great software is built by great teams working together."
+      answer: "Absolutely! My bartending experience taught me excellent teamwork and collaboration skills. I've led teams during busy periods, and ensured smooth operations. I believe great software is built by great teams working together."
     },
     {
       id: 'learning-approach',
       question: "How do you stay updated with technology?",
-      answer: "I'm committed to continuous learning through multiple channels: online courses, documentation, developer communities, tech blogs, and hands-on projects. I regularly experiment with new technologies and contribute to open-source projects when possible."
+      answer: "I'm committed to continuous learning through multiple channels: online courses, documentation, developer communities, tech blogs, and hands-on projects. I also experiment with new technologies when possible."
     },
     {
       id: 'project-preferences',
       question: "What type of projects do you enjoy working on?",
-      answer: "I'm passionate about user-focused applications that solve real-world problems. I particularly enjoy full-stack web applications, interactive user interfaces, and projects that challenge me to learn new technologies while creating meaningful impact for users."
+      answer: "I'm passionate about user-focused applications. I particularly enjoy full-stack web applications, interactive user interfaces, and projects that challenge me to learn new technologies while creating impact for users."
     },
     {
       id: 'remote-work',
       question: "Are you comfortable with remote work?",
-      answer: "Yes, I'm very comfortable with remote work. I have experience with remote collaboration tools, maintaining productivity in distributed teams, and effective communication across different time zones. I believe in the importance of clear documentation and regular check-ins."
+      answer: "Yes, I'm very comfortable with remote work. I have experience with remote collaboration tools, maintaining productivity in distributed teams, and effective communication. I believe in the importance of clear documentation and regular check-ins."
     },
     {
       id: 'career-goals',

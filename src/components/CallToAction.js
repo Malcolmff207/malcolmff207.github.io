@@ -23,12 +23,12 @@ const CallToActionSkeleton = () => (
 const CallToAction = ({ 
   content = {
     title: "Ready to Start My Career Journey?",
-    description: "I'm passionate about creating clean, efficient code and eager to contribute to a dynamic development team. Whether you're looking for a junior developer or want to discuss opportunities, I'd love to connect!"
+    description: "I'm passionate about creating clean, efficient code and eager to contribute to a dynamic development team. Whether you're looking for a junior developer, I'd love to connect!"
   },
   buttons = {
     email: {
       text: "Email Me",
-      href: "mailto:malcolmff207@gmail.com"
+      href: "/contact"
     },
     phone: {
       text: "Give Me a Call", 

@@ -45,9 +45,9 @@ const SocialLinks = () => {
     {
       name: 'GitHub',
       icon: FaGithub,
-      href: "https://github.com/malcolmff",
+      href: "https://github.com/Malcolmff207",
       description: 'Code repositories & projects',
-      stats: '25+ Repositories',
+      stats: '',
       color: 'from-gray-700 to-gray-900',
       hoverColor: 'hover:from-gray-600 hover:to-gray-800',
       bgPattern: 'bg-gray-50 dark:bg-gray-800',
@@ -67,7 +67,7 @@ const SocialLinks = () => {
     {
       name: 'Facebook',
       icon: FaFacebook,
-      href: "https://facebook.com/malcolmfenech",
+      href: "https://www.facebook.com/malcolm.farrugia.37",
       description: 'Personal updates & connections',
       stats: 'Stay Connected',
       color: 'from-blue-500 to-blue-700',
@@ -78,24 +78,13 @@ const SocialLinks = () => {
     {
       name: 'Instagram',
       icon: FaInstagram,
-      href: "https://instagram.com/malcolmfenech",
+      href: "https://www.instagram.com/malc.farrugia/?hl=en",
       description: 'Behind the scenes & lifestyle',
       stats: 'Photos & Stories',
       color: 'from-pink-500 via-red-500 to-yellow-500',
       hoverColor: 'hover:from-pink-400 hover:via-red-400 hover:to-yellow-400',
       bgPattern: 'bg-pink-50 dark:bg-pink-900/20',
       textColor: 'text-pink-600 dark:text-pink-400'
-    },
-    {
-      name: 'Twitter',
-      icon: FaTwitter,
-      href: "https://twitter.com/malcolmfenech",
-      description: 'Tech thoughts & quick updates',
-      stats: 'Tech Discussions',
-      color: 'from-sky-400 to-sky-600',
-      hoverColor: 'hover:from-sky-300 hover:to-sky-500',
-      bgPattern: 'bg-sky-50 dark:bg-sky-900/20',
-      textColor: 'text-sky-600 dark:text-sky-400'
     },
     {
       name: 'Email',
