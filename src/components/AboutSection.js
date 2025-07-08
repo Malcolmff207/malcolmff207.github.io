@@ -63,13 +63,13 @@ const AboutSection = () => {
 
   const [targets, setTargets] = useState({
     yearStarted: 0,
-    yearsExperience: 0,
+    driven: 0,
     techCount: 0,
     passionPercent: 0,
   });
 
   const { count: yearStarted } = useAnimatedCounter(targets.yearStarted, 2000, 200);
-  const { count: yearsExperience } = useAnimatedCounter(targets.yearsExperience, 2000, 400);
+  const { count: driven } = useAnimatedCounter(targets.driven, 2000, 400);
   const { count: techCount } = useAnimatedCounter(targets.techCount, 2000, 600);
   const { count: passionPercent } = useAnimatedCounter(targets.passionPercent, 2000, 800);
 
@@ -79,7 +79,7 @@ const AboutSection = () => {
       stopLoading();
       setTargets({
         yearStarted: 2024,
-        yearsExperience: 6,
+        driven: 100,
         techCount: 10,
         passionPercent: 100,
       });
@@ -235,9 +235,9 @@ const AboutSection = () => {
                     <FaCode className="text-xs sm:text-sm" />
                   </div>
                   <div>
-                    <div className="text-lg sm:text-xl md:text-2xl font-bold">{yearsExperience}+</div>
+                    <div className="text-lg sm:text-xl md:text-2xl font-bold">{driven}%</div>
                     <div className="text-[10px] sm:text-xs opacity-90 font-medium leading-tight">
-                      Years<br className="sm:hidden" /> Experience
+                      Driven<br className="sm:hidden" /> & Eager
                     </div>
                   </div>
                 </div>
