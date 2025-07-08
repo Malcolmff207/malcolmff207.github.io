@@ -174,7 +174,7 @@ const AboutSection = () => {
                   transform hover:rotate-[0deg] transition-all duration-700 hover:scale-[1.02] hover:shadow-3xl 
                   overflow-hidden border-2 lg:border-4 border-white dark:border-gray-700 z-10">
                   <img 
-                    src="https://images.unsplash.com/photo-1573164713714-d95e436ab8d6?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    src="/developer.jpg" 
                     alt="Professional workspace" 
                     className="w-full h-full object-cover"
                   />
@@ -194,7 +194,7 @@ const AboutSection = () => {
                   transform hover:rotate-[-5deg] transition-all duration-500 hover:scale-105 hover:shadow-2xl 
                   overflow-hidden border-2 lg:border-3 border-white dark:border-gray-700 z-20">
                   <img 
-                    src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    src="/teamwork.jpg" 
                     alt="Team collaboration" 
                     className="w-full h-full object-cover"
                   />
@@ -214,7 +214,7 @@ const AboutSection = () => {
                   transform hover:rotate-[8deg] transition-all duration-500 hover:scale-105 hover:shadow-2xl 
                   overflow-hidden border-2 lg:border-3 border-white dark:border-gray-700 z-20">
                   <img 
-                    src="https://images.unsplash.com/photo-1571019613454-1cb2f99b2d8b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=800&q=80" 
+                    src="/developerSuccess.jpeg" 
                     alt="Development setup" 
                     className="w-full h-full object-cover"
                   />
@@ -252,7 +252,8 @@ const AboutSection = () => {
                {/* Passion for Innovation Badge - Responsive positioning and sizing */}
                 <div className="absolute 
                   bottom-[-15px] right-2 
-                  sm:bottom-[-20px] sm:right-4 
+                  xs:bottom-[-100px]
+                  sm:bottom-[-40px] sm:right-4 
                   md:bottom-[-25px] md:right-6 
                   lg:bottom-[-30px] lg:right-8 
                   bg-gradient-to-r from-red-500 to-red-600 text-white rounded-xl lg:rounded-2xl 

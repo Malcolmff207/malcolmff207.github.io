@@ -106,7 +106,7 @@ const Header = () => {
                   isLoaded ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'
                 }`}
               >
-                Passionate full-stack developer from Malta creating exceptional digital experiences
+                Passionate developer from Malta creating exceptional digital experiences
                 with modern technologies. Let's build something amazing together.
               </p>
 
@@ -147,7 +147,7 @@ const Header = () => {
               <div className="relative">
                 <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-96 lg:h-96">
                   <img
-                      src="/path/to/your-photo.jpg"
+                      src="/myPic.png"
                       alt="Malcolm Fenech"
                       className="
                         w-full h-full
@@ -155,7 +155,6 @@ const Header = () => {
                         rounded-tl-[150px]
                         object-cover
                         border-4 border-white/10
-                        animate-pulse
                         shadow-2xl
                       "
                     />
