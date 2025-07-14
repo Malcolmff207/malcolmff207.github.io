@@ -42,7 +42,7 @@ const Resume = forwardRef((props, ref) => {
   const workExperience = [
     {
       title: "Apprentice Full Stack Developer",
-      company: "IIGU, Marsa",
+      company: "ILGLU, Marsa",
       period: "2024 – 2025",
       description: "Developing full-stack applications with modern technologies. Collaborating with senior developers on real-world projects."
     },
