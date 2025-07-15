@@ -9,7 +9,7 @@ const Resume = forwardRef((props, ref) => {
 
   const personalInfo = {
     name: "Malcolm Fenech",
-    title: "Front-end Developer",
+    title: "Software Developer",
     description: `Completed a Bachelor of Science (Honours) in Multimedia Software Development at MCAST this year, with recent experience as an Apprentice Full Stack Developer at IIGU. Practical experience in full-stack development and UI/UX design, and proficient in modern web technologies such as HTML, CSS, JavaScript, React.js, Next.js, and Tailwind. Strong foundation in teamwork and problem-solving skills, developed through technical projects and prior hospitality work. As I enter the field of professional development, I'm passionate about developing intuitive user interfaces and looking for chances to contribute to creative development projects.`
   };
 
